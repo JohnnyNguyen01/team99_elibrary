@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_navigation/riverpod_navigation.dart';
 
-import '../../authentication/presentation/views/sign_in_screen.dart';
-import '../presentation/views/loading_screen.dart';
+import '../../../authentication/presentation/views/sign_in_screen.dart';
+import '../../presentation/views/home_screen.dart';
+import '../../presentation/views/loading_screen.dart';
 import 'providers.dart';
 import 'routes.dart';
 
@@ -25,6 +26,15 @@ final _loading = RouteDefinition(
   ),
 );
 
+// TODO: Create Error 404 route [Johnny]
+
+final _authenticated = RouteDefinition(
+  template: uriToTemplate(RoutePath.root),
+  builder: (_, __, ___, ____) => const MaterialPage<void>(
+    child: HomeScreen(),
+  ),
+);
+
 /// Trigger for login state changes
 final authNavigationProvider =
     Provider.autoDispose.family<void, ValueNotifier<RouteDefinition>>(
@@ -34,7 +44,7 @@ final authNavigationProvider =
             if(!appState.isAuthenticated){
               routes.value = _auth;
             } else {
-              routes.value = _loading;
+              routes.value = _authenticated;
             }
           });
         },
