@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../common/domain/models/failure.dart';
 import '../../common/domain/models/result.dart';
-import '../../common/utils/hooks.dart';
 import '../domain/auth_repository.dart';
+import '../domain/user.dart';
 import '../providers.dart';
 import 'sign_in_state.dart';
 
@@ -25,7 +26,7 @@ class SignInScreenController extends StateNotifier<SignInState> {
   /// Login Button Handler
   ///
   /// Attemps to login a user with the provided credentials.
-  Future<void> handleLogin({
+  Future<Result<User?, FailureState>> handleLogin({
     required String email,
     required String password,
     required BuildContext context,
@@ -35,8 +36,10 @@ class SignInScreenController extends StateNotifier<SignInState> {
         email: email, password: password);
     if (result.status == ResultStatus.failure) {
       state = SignInState.error(message: result.error?.message);
-      // TODO: Implement better toast
-      useSnackBar(context: context, message: result.error?.message ?? '');
+      return Future.value(result);
+    } else {
+      state = const SignInState.success();
+      return Future.value(result);
     }
   }
 }

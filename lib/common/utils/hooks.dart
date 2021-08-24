@@ -18,7 +18,9 @@ void useSnackBar({
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       backgroundColor: color,
+      behavior: SnackBarBehavior.floating,
       content: Text(message),
+      width: 448,
     ),
   );
 }

@@ -29,7 +29,7 @@ final _loading = RouteDefinition(
 // TODO: Create Error 404 route [Johnny]
 
 final _authenticated = RouteDefinition(
-  template: uriToTemplate(RoutePath.root),
+  template: uriToTemplate(RoutePath.home),
   builder: (_, __, ___, ____) => const MaterialPage<void>(
     child: HomeScreen(),
   ),
@@ -39,21 +39,21 @@ final _authenticated = RouteDefinition(
 final authNavigationProvider =
     Provider.autoDispose.family<void, ValueNotifier<RouteDefinition>>(
   (ref, routes) => ref.watch(appStateStreamProvider).when(
-        data: (appState) async {
-          await Future.microtask((){
-            if(!appState.isAuthenticated){
-              routes.value = _auth;
-            } else {
-              routes.value = _authenticated;
-            }
-          });
-        },
-        loading: () async {
-          await Future.microtask(() => routes.value = _loading);
-        },
-        error: (err,exception){
-          // TODO: Implement proper logging via Logger [Johnny]
-          debugPrint('Navigation: $err');
-        },
-      ),
+    data: (appState) async {
+      await Future.microtask(() {
+        if (!appState.isAuthenticated) {
+          routes.value = _auth;
+        } else {
+          routes.value = _authenticated;
+        }
+      });
+    },
+    loading: () async {
+      await Future.microtask(() => routes.value = _loading);
+    },
+    error: (err, exception) {
+      // TODO: Implement proper logging via Logger [Johnny]
+      debugPrint('Navigation: $err');
+    },
+  ),
 );

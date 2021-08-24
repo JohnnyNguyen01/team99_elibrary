@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_extension/riverpod_extension.dart';
 
 import '../../../common/presentation/widgets/hyper_link.dart';
 import '../../../common/utils/constants.dart';
@@ -16,35 +17,40 @@ class SignInScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final size = useScreenSize();
-
     return Scaffold(
-        body: Row(
-      children: [
-        SizedBox(
-          height: size.height,
-          width: _sidebarWidth,
-          child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Align(
-              child: SingleChildScrollView(
-                child: _BuildAuthForm(),
+        body: SizedBox(
+      height: size.height,
+      width: size.width,
+      child: Row(
+        children: [
+          Expanded(
+            flex: 4,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Align(
+                child: SingleChildScrollView(
+                  child: SizedBox(
+                    height: size.height,
+                    width: size.width,
+                    child: const _BuildAuthForm(),
+                  ),
+                ),
               ),
             ),
           ),
-        ),
-        SizedBox(
-          width: size.width - _sidebarWidth,
-          height: size.height,
-          child: Image.network(
-            'https://images.unsplash.com/photo-1501503069356-3c6b82a17d89?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2850&q=80',
-            width: size.width - _sidebarWidth,
-            height: size.height,
-            fit: BoxFit.cover,
-          ),
-          // TODO: Find fix for Aspect Ration [Johnny]
-          // child: const CustomVideoPlayer(),
-        )
-      ],
+          // TODO: Set as custom break point [Johnny]
+          if (size.width > tabletWidthBreakPoint)
+            Expanded(
+              flex: 9,
+              child: Image.network(
+                'https://images.unsplash.com/photo-1501503069356-3c6b82a17d89?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2850&q=80',
+                width: size.width - _sidebarWidth,
+                height: size.height,
+                fit: BoxFit.cover,
+              ),
+            )
+        ],
+      ),
     ));
   }
 }
@@ -60,6 +66,7 @@ class _BuildAuthForm extends HookWidget {
     final passwordController = useTextEditingController();
     final formKey = useMemoized(() => GlobalKey<FormState>());
     final validators = useValidators();
+    final theme = useTheme();
 
     return Form(
       key: formKey,
@@ -96,22 +103,33 @@ class _BuildAuthForm extends HookWidget {
               child: CircularProgressIndicator(),
             )
           else
-            SizedBox(
-              width: 400,
-              height: 48,
-              child: ElevatedButton(
-                onPressed: () async {
-                  // TODO: Move to view model
-                  final isValid = formKey.currentState?.validate();
-                  if (isValid != null && isValid) {
-                    await screenController.handleLogin(
-                        context: context,
-                        email: emailController.text,
-                        password: passwordController.text);
-                  }
-                },
-                child: const Text('Login'),
-              ),
+            Flex(
+              direction: Axis.vertical,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(
+                  height: 40,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      // TODO: See if I can move to ViewModel
+                      final isValid = formKey.currentState?.validate();
+                      if (isValid != null && isValid) {
+                        final result = await screenController.handleLogin(
+                            context: context,
+                            email: emailController.text,
+                            password: passwordController.text);
+                        if (result.error != null) {
+                          useSnackBar(
+                              context: context,
+                              color: theme.colorScheme.error,
+                              message: result.error?.message ?? '');
+                        }
+                      }
+                    },
+                    child: const Text('LOGIN'),
+                  ),
+                ),
+              ],
             ),
           const SizedBox(height: 8),
           Row(
