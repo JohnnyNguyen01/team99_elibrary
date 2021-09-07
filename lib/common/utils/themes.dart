@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 /// Application's light theme
 final appThemeLight = FlexColorScheme.light(
-        scheme: FlexScheme.red,
+        scheme: FlexScheme.redWine,
         fontFamily: GoogleFonts.poppins().fontFamily)
     .toTheme
     .copyWith(
@@ -12,7 +12,7 @@ final appThemeLight = FlexColorScheme.light(
 
 /// Application's dark theme
 final appThemeDark = FlexColorScheme.dark(
-        scheme: FlexScheme.red,
+        scheme: FlexScheme.redWine,
         fontFamily: GoogleFonts.poppins().fontFamily)
     .toTheme
     .copyWith(

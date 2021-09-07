@@ -5,7 +5,7 @@ import '../../domain/models/app_state.dart';
 /// Provides [StreamProvider] of app state changes
 final appStateStreamProvider = StreamProvider.autoDispose<AppState>((ref) {
   // TODO: Change to var when adding more routing logic
-  var appState = const AppState();
+  var appState = const AppState(isAuthenticated: true);
 
   final currentUser = ref.watch(currentUserStreamProvider).data?.value;
   if (currentUser != null) {
