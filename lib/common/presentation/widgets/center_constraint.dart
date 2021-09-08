@@ -22,6 +22,7 @@ class CenterConstraint extends HookWidget {
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: maxContentWidth),
         child: Padding(
+          // padding used to ensure responsiveness
           padding: EdgeInsets.all(screenSize.width < maxContentWidth ? 16 : 0),
           child: Column(
             children: [

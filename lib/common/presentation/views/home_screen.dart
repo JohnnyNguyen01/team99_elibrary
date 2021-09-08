@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:riverpod_extension/riverpod_extension.dart';
-import 'package:team99_elibrary/common/presentation/widgets/carousel.dart';
 
 import '../../utils/constants.dart';
 import '../../utils/hooks.dart';
+import '../widgets/carousel.dart';
 import '../widgets/center_constraint.dart';
 import '../widgets/large_alert.dart';
 import '../widgets/search_bar.dart';
@@ -43,7 +43,7 @@ class HomeScreen extends HookWidget {
 
     return Scaffold(
       // TODO: Add to theme
-      backgroundColor: Color(0xFFF1F3F5),
+      backgroundColor: theme.backgroundColor,
       appBar: AppBar(
         centerTitle: false,
         toolbarHeight: appBarheight,
@@ -150,9 +150,9 @@ class HomeScreen extends HookWidget {
           ),
         ),
       ),
-      body: const CenterConstraint(children: [
+      body: CenterConstraint(children: [
         // Alert placeholder
-        Padding(
+        const Padding(
           padding: EdgeInsets.symmetric(vertical: 16),
           child: LargeAlert(
             title: 'Lockdown service and collection hours',
@@ -163,10 +163,76 @@ class HomeScreen extends HookWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(vertical: 16),
-          child: Carousel(),
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Carousel(),
+              Column(
+                children: const [
+                  InfoCard(
+                      overlineHeading: 'News',
+                      heading: 'Coronavirus libary update',
+                      footer: null),
+                  InfoCard(
+                      overlineHeading: 'News',
+                      heading: 'Coronavirus libary update',
+                      footer: null),
+                ],
+              )
+            ],
+          ),
         )
       ]),
+    );
+  }
+}
+
+/// A generic card to show information
+class InfoCard extends HookWidget {
+  /// [InfoCard] constructor
+  const InfoCard(
+      {required this.overlineHeading,
+      required this.heading,
+      required this.footer});
+
+  /// Heading overline
+  final String? overlineHeading;
+
+  /// Card Title
+  final String? heading;
+
+  /// Subtitle
+  final Widget? footer;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = useTheme();
+    return Card(
+      elevation: 0,
+      child: Container(
+        width: 324,
+        height: 134,
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SelectableText(
+              overlineHeading ?? '',
+              style: theme.textTheme.bodyText2?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: theme.colorScheme.primary,
+              ),
+            ),
+            SelectableText(
+              heading ?? '',
+              style: theme.textTheme.headline6,
+            ),
+            const SizedBox(height: 4),
+            footer ?? const SizedBox()
+          ],
+        ),
+      ),
     );
   }
 }
