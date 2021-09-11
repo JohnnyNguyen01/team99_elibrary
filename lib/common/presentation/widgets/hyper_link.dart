@@ -7,16 +7,16 @@ import 'package:riverpod_extension/riverpod_extension.dart';
 /// link onTap.
 class HyperLink extends HookWidget {
   /// Creates an instance of [HyperLink]
-  const HyperLink({
-    required this.label,
-    required this.link,
-  });
+  const HyperLink({required this.label, this.link, this.onTap});
 
   /// The link's label
   final String label;
 
   /// The link to route to on press
-  final String link;
+  final String? link;
+
+  /// The onTap callback
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +32,7 @@ class HyperLink extends HookWidget {
         isHovered.value = false;
       },
       child: GestureDetector(
-        onTap: () {
-        },
+        onTap: () {},
         child: Text(
           label,
           style: theme.textTheme.bodyText2?.copyWith(
