@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:riverpod_extension/riverpod_extension.dart';
 
@@ -7,9 +8,11 @@ import '../../utils/hooks.dart';
 import '../widgets/carousel.dart';
 import '../widgets/center_constraint.dart';
 import '../widgets/large_alert.dart';
+import '../widgets/mouse_region.dart';
 import '../widgets/search_bar.dart';
 
 /// App Bar Height
+
 const appBarheight = 90.0;
 
 /// Navigation Bar Height
@@ -32,7 +35,7 @@ class HomeScreen extends HookWidget {
     final screenSize = useScreenSize();
     // TODO: Remove and add proper route tabs [Johnny]
     final _mockRoutes = [
-      'Resources',
+      'Books',
       'Services',
       'Referencing',
       'Get Help',
@@ -52,6 +55,19 @@ class HomeScreen extends HookWidget {
           '$assetImagePath/wsu_logo.png',
           height: 64,
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: MouseRegionWrapper(
+              onTap: () {},
+              child: const CircleAvatar(
+                radius: 28,
+                foregroundImage: NetworkImage(
+                    'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80'),
+              ),
+            ),
+          )
+        ],
         bottom: PreferredSize(
           preferredSize: Size(
             screenSize.width,
@@ -74,11 +90,7 @@ class HomeScreen extends HookWidget {
                       // TODO: Refactor into common widget [Johnny]
                       Container(
                         margin: const EdgeInsets.symmetric(horizontal: 24),
-                        child: SelectableText(
-                          mockRoute,
-                          style: theme.textTheme.bodyText1
-                              ?.copyWith(color: theme.colorScheme.surface),
-                        ),
+                        child: _NavBarLink(label: mockRoute),
                       )
                   ],
                 ),
@@ -184,6 +196,35 @@ class HomeScreen extends HookWidget {
           ),
         )
       ]),
+    );
+  }
+}
+
+class _NavBarLink extends HookWidget {
+  const _NavBarLink({required this.label, this.onTap});
+
+  final String label;
+
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final isHovered = useState(false);
+    final theme = useTheme();
+
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onHover: (_) => isHovered.value = true,
+      onExit: (_) => isHovered.value = false,
+      child: Text(
+        label,
+        style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.colorScheme.surface,
+            decorationThickness: 1,
+            decoration: isHovered.value
+                ? TextDecoration.underline
+                : TextDecoration.none),
+      ),
     );
   }
 }
