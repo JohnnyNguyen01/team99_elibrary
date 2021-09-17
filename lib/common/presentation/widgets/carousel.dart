@@ -19,7 +19,9 @@ const maxCarouselHeight = 386.0;
  */
 const _mockTitle = 'Chat to a librarian today';
 const _mockMessage =
-    'Our friendly librarians are here to help you with referencing, finding academic resources, Library access and more. 8am to 10pm weekdays. 10am to 6pm weekends.';
+    'Our friendly librarians are here to help you with referencing, '
+    'finding academic resources, Library access and more. 8am to 10pm  '
+    'weekdays. 10am to 6pm weekends.';
 final _mockSvg = SvgPicture.asset('${assetImagePath}active_support.svg');
 const _mockPageCounter = 4;
 

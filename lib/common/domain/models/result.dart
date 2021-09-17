@@ -1,4 +1,4 @@
-import 'failure.dart';
+import 'failure/failure.dart';
 
 /// A [Result] of [data] or [error]
 class Result<T, Exception> {

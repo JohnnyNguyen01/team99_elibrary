@@ -157,11 +157,12 @@ class HomeScreen extends HookWidget {
           child: LargeAlert(
             title: 'Lockdown service and collection hours',
             // ignore: prefer_interpolation_to_compose_strings
-            message: 'Chat to a librarian 8am to 10pm weekdays, 10am to 6pm' +
-                'weekends. Access resources via click-and-collect, 2pm to 6pm ' +
+            message: 'Chat to a librarian 8am to 10pm weekdays, 10am to 6pm '
+                'weekends. Access resources via click-and-collect, 2pm to 6pm '
                 'daily. Check access conditions before coming to campus. ',
           ),
         ),
+
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
           child: Row(

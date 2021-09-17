@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../common/domain/models/failure.dart';
+import '../../common/domain/models/failure/failure.dart';
 import '../../common/domain/models/result.dart';
 import '../domain/auth_repository.dart';
 import '../domain/user.dart' as model;
