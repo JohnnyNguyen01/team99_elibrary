@@ -1,4 +1,4 @@
-import '../../common/domain/models/failure.dart';
+import '../../common/domain/models/failure/failure.dart';
 import '../../common/domain/models/result.dart';
 import 'user.dart';
 
