@@ -7,4 +7,7 @@ class RoutePath {
 
   /// Home route path
   static final home = Uri(path: '/home');
+
+  /// Books route path
+  static final books = Uri(path: '/books');
 }

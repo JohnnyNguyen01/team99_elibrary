@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_navigation/riverpod_navigation.dart';
 
 import '../../../authentication/presentation/views/sign_in_screen.dart';
+import '../../presentation/views/books/books_screen.dart';
 import '../../presentation/views/home_screen.dart';
 import '../../presentation/views/loading_screen.dart';
 import 'providers.dart';
@@ -29,11 +30,19 @@ final _loading = RouteDefinition(
 // TODO: Create Error 404 route [Johnny]
 
 final _authenticated = RouteDefinition(
-  template: uriToTemplate(RoutePath.home),
-  builder: (_, __, ___, ____) => const MaterialPage<void>(
-    child: HomeScreen(),
-  ),
-);
+    template: uriToTemplate(RoutePath.home),
+    builder: (_, __, ___, ____) => const MaterialPage<void>(
+          child: HomeScreen(),
+        ),
+    next: [
+      RouteDefinition(
+        template: uriToTemplate(RoutePath.books),
+        builder: (_, __, ___, ____) => const MaterialPage<void>(
+          child: BooksScreen(),
+          fullscreenDialog: true,
+        ),
+      ),
+    ]);
 
 /// Trigger for login state changes
 final authNavigationProvider =

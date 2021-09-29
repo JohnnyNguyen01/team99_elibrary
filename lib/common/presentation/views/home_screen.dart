@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:riverpod_extension/riverpod_extension.dart';
 
+import '../../infrastructure/routes/routes.dart';
 import '../../utils/constants.dart';
+import '../../utils/extensions/build_context.dart';
 import '../../utils/hooks.dart';
 import '../widgets/carousel.dart';
 import '../widgets/center_constraint.dart';
@@ -32,7 +34,7 @@ class HomeScreen extends HookWidget {
     final screenSize = useScreenSize();
     // TODO: Remove and add proper route tabs [Johnny]
     final _mockRoutes = [
-      'Resources',
+      'Books',
       'Services',
       'Referencing',
       'Get Help',
@@ -72,12 +74,16 @@ class HomeScreen extends HookWidget {
                   children: [
                     for (final mockRoute in _mockRoutes)
                       // TODO: Refactor into common widget [Johnny]
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 24),
-                        child: SelectableText(
-                          mockRoute,
-                          style: theme.textTheme.bodyText1
-                              ?.copyWith(color: theme.colorScheme.surface),
+                      GestureDetector(
+                        onTap: () =>
+                            context.navigateTo(routePath: RoutePath.books),
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 24),
+                          child: Text(
+                            mockRoute,
+                            style: theme.textTheme.bodyText1
+                                ?.copyWith(color: theme.colorScheme.surface),
+                          ),
                         ),
                       )
                   ],
