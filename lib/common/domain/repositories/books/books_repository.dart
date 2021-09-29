@@ -28,9 +28,32 @@ class BooksRepository implements IBooksRepository {
   }
 
   @override
-  Future<Result<List<Book>, FailureState>> fetchAllBooks() {
-    // TODO: implement fetchAllBooks
-    throw UnimplementedError();
+  Future<Result<List<Book>, FailureState>> fetchAllBooks() async {
+    final requestOptions = RequestOptions(
+      path: '$_baseUrl/fetchAllBooks',
+      contentType: 'application/json',
+    );
+    try {
+      final response = await _dio.fetch<Map<String, dynamic>>(requestOptions);
+      if (response.statusCode == 200) {
+        final data = response.data;
+        if (data != null) {
+          return Result.success([]);
+        } else {
+          return Result.failure(
+            const FailureState("something went wrong, couldn't retrieve books"),
+          );
+        }
+      } else {
+        return Result.failure(
+          const FailureState("something went wrong, couldn't retrieve books"),
+        );
+      }
+    } on Exception catch (e) {
+      return Result.failure(
+        FailureState(e.toString()),
+      );
+    }
   }
 
   @override
