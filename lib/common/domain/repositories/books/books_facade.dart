@@ -1,21 +1,24 @@
+import 'package:dartz/dartz.dart';
+
 import '../../models/book/book.dart';
 import '../../models/failure/failure.dart';
-import '../../models/result.dart';
+import '../../models/success/success.dart';
 
 /// Book Repository interface
 abstract class IBooksRepository {
   /// Add a new book to the database
-  Future<void> addNewBook({Book? book});
+  Future<Either<void, FailureState>> addNewBook({Book? book});
 
   /// Retrieve the Specified book via it's uid;
-  Future<Result<Book, FailureState>> fetchBookByUid({required String uid});
+  Future<Either<Book, FailureState>> fetchBookByUid({required String uid});
 
   /// Delete a book via its uid
-  Future<void> deleteBookByUid({required String uid});
+  Future<Either<SuccessResponse, FailureState>> deleteBookByUid(
+      {required String uid});
 
   /// Fetches all the books within the database
-  Future<Result<List<Book>, FailureState>> fetchAllBooks();
+  Future<Either<List<Book>, FailureState>> fetchAllBooks();
 
   /// Deletes all books from the database
-  Future<void> deleteAllBooks();
+  Future<Either<SuccessResponse, FailureState>> deleteAllBooks();
 }
