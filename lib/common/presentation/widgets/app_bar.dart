@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:riverpod_extension/riverpod_extension.dart';
+import 'package:team99_elibrary/common/presentation/widgets/mouse_region_pointer.dart';
 
 import '../../infrastructure/routes/routes.dart';
 import '../../utils/constants.dart';
@@ -32,9 +33,12 @@ class WebsiteHeader extends HookWidget {
       centerTitle: false,
       toolbarHeight: appBarheight,
       backgroundColor: theme.colorScheme.surface,
-      title: Image.asset(
-        '$assetImagePath/wsu_logo.png',
-        height: 64,
+      title: MouseRegionPointer(
+        onPressed: () => context.navigateTo(routePath: RoutePath.home),
+        child: Image.asset(
+          '$assetImagePath/wsu_logo.png',
+          height: 64,
+        ),
       ),
       bottom: PreferredSize(
         preferredSize: Size(

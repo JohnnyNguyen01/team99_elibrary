@@ -5,6 +5,7 @@ import 'package:riverpod_extension/riverpod_extension.dart';
 
 import '../../widgets/app_bar.dart';
 import 'view_model/books_notifier.dart';
+import 'widgets/book_detail_card.dart';
 
 /// Books Screen
 class BooksScreen extends HookWidget {
@@ -25,76 +26,39 @@ class BooksScreen extends HookWidget {
       body: NestedScrollView(
         headerSliverBuilder: (final context, final innerIsScrolled) =>
             [const WebsiteHeader()],
-        body: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(height: 16),
-            Text(
-              'Books',
-              style: theme.textTheme.headline4,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.only(
+              top: 8,
+              left: 16,
             ),
-            const SizedBox(height: 12),
-            GridView.builder(
-              shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 6,
-                crossAxisSpacing: 24,
-                mainAxisExtent: 560,
-              ),
-              itemCount: state.books.length,
-              itemBuilder: (final _, final index) {
-                final book = state.books[index];
-                return BookDetailCard(
-                  imageUrl: book.imageUrl ?? '',
-                  title: book.name ?? '',
-                );
-              },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 16),
+                Text(
+                  'Books',
+                  style: theme.textTheme.headline4,
+                ),
+                const SizedBox(height: 12),
+                GridView.count(
+                  shrinkWrap: true,
+                  crossAxisSpacing: 16,
+                  childAspectRatio: 0.5,
+                  // TODO: Make responseive 2 for phone views
+                  crossAxisCount: 6,
+                  children: [
+                    for (final book in state.books)
+                      BookDetailCard(
+                        imageUrl: book.imageUrl ?? '',
+                        title: book.name ?? '',
+                      )
+                  ],
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// Book Detail Card
-class BookDetailCard extends HookWidget {
-  /// [BookDetailCard] constructor
-  const BookDetailCard({
-    required final this.imageUrl,
-    required final this.title,
-  });
-
-  /// Image url
-  final String imageUrl;
-
-  /// Card title
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = useTheme();
-    return Card(
-      elevation: 2,
-      child: SizedBox(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.network(
-              imageUrl,
-              fit: BoxFit.contain,
-            ),
-            Text(
-              title,
-              style: theme.textTheme.bodyText1,
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('Borrow'),
-            ),
-          ],
+          ),
         ),
       ),
     );
