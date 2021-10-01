@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -23,6 +24,6 @@ final dioHttpProvider = Provider<Dio>((_) => Dio());
 
 /// [BooksRepository] provider
 final booksRepositoryProvider = Provider<IBooksRepository>((ref) {
-  final dio = ref.watch(dioHttpProvider);
-  return BooksRepository(dio: dio);
+  final firestore = FirebaseFirestore.instance;
+  return BooksRepository(firestore: firestore);
 });

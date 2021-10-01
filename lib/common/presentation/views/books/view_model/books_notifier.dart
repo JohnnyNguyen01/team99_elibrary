@@ -24,10 +24,12 @@ class BooksScreenNotifier extends StateNotifier<BooksViewModel> {
   /// get the current books list
   Future<void> setBooksList() async {
     final singleBook = await _booksRepo.fetchAllBooks();
-    print(singleBook.data);
-    // final book = singleBook.data;
-    // if (book != null) {
-    //   state = state.copyWith(books: [book]);
-    // }
+    singleBook.fold(
+      (bookList) {
+        state = state.copyWith(books: bookList);
+        print(state.books.length);
+      },
+      (failState) => print(failState.message),
+    );
   }
 }
