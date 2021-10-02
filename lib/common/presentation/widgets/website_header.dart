@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_extension/riverpod_extension.dart';
-import 'package:team99_elibrary/common/presentation/widgets/mouse_region_pointer.dart';
+import 'package:riverpod_navigation/riverpod_navigation.dart';
 
 import '../../infrastructure/routes/routes.dart';
 import '../../utils/constants.dart';
-import '../../utils/extensions/build_context.dart';
+import '../../utils/extensions/build_context.dart' ;
 import '../../utils/hooks.dart';
 import '../views/home_screen.dart';
+import 'mouse_region_pointer.dart';
 import 'search_bar.dart';
 
 final _mockRoutes = [
@@ -29,12 +31,14 @@ class WebsiteHeader extends HookWidget {
   Widget build(BuildContext context) {
     final theme = useTheme();
     final screenSize = useScreenSize();
+    final navigator = useProvider(navigationProvider.notifier);
+    
     return SliverAppBar(
       centerTitle: false,
       toolbarHeight: appBarheight,
       backgroundColor: theme.colorScheme.surface,
       title: MouseRegionPointer(
-        onPressed: () => context.navigateTo(routePath: RoutePath.home),
+        onPressed: () => navigator.navigate(RoutePath.home),
         child: Image.asset(
           '$assetImagePath/wsu_logo.png',
           height: 64,
@@ -58,8 +62,8 @@ class WebsiteHeader extends HookWidget {
                 children: [
                   for (final mockRoute in _mockRoutes)
                     // TODO: Refactor into common widget [Johnny]
-                    GestureDetector(
-                      onTap: () =>
+                    MouseRegionPointer(
+                      onPressed: () =>
                           context.navigateTo(routePath: RoutePath.books),
                       child: Container(
                         margin: const EdgeInsets.symmetric(horizontal: 24),

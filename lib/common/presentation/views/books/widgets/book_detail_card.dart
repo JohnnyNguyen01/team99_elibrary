@@ -16,8 +16,8 @@ class BookDetailCard extends HookWidget {
   /// Card title
   final String title;
 
-  static const _maxWidth = 300.0;
-  static const _maxHeight = 450.0;
+  static const _maxWidth = 190.0;
+  static const _maxHeight = 280.0;
 
   @override
   Widget build(BuildContext context) {
