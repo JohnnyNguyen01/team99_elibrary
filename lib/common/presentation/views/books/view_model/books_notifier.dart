@@ -27,9 +27,8 @@ class BooksScreenNotifier extends StateNotifier<BooksViewModel> {
     singleBook.fold(
       (bookList) {
         state = state.copyWith(books: bookList);
-        print(state.books.length);
       },
-      (failState) => print(failState.message),
+      (failState) => null,
     );
   }
 }
