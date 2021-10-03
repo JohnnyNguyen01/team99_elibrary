@@ -6,7 +6,6 @@ import 'package:riverpod_navigation/riverpod_navigation.dart';
 
 import '../../infrastructure/routes/routes.dart';
 import '../../utils/constants.dart';
-import '../../utils/extensions/build_context.dart';
 import '../../utils/hooks.dart';
 import 'mouse_region_pointer.dart';
 import 'search_bar.dart';
@@ -69,8 +68,7 @@ class WebsiteHeader extends HookWidget {
                   for (final mockRoute in _mockRoutes)
                     // TODO: Refactor into common widget [Johnny]
                     MouseRegionPointer(
-                      onPressed: () =>
-                          context.navigateTo(routePath: RoutePath.books),
+                      onPressed: () => navigator.navigate(RoutePath.books),
                       child: Container(
                         margin: const EdgeInsets.symmetric(horizontal: 24),
                         child: Text(

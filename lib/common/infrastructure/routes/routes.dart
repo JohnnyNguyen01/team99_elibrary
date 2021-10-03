@@ -6,8 +6,11 @@ class RoutePath {
   static final root = Uri(path: '/');
 
   /// Home route path
-  static final home = Uri(path: '/home');
+  static final home = Uri(path: '/');
 
   /// Books route path
   static final books = Uri(path: '/books');
+
+  /// Dashboard route path
+  static final dashboard = Uri(path: '/dashboard');
 }
