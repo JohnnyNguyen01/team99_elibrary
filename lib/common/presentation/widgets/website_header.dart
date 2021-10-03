@@ -8,7 +8,6 @@ import '../../infrastructure/routes/routes.dart';
 import '../../utils/constants.dart';
 import '../../utils/extensions/build_context.dart' ;
 import '../../utils/hooks.dart';
-import '../views/home_screen.dart';
 import 'mouse_region_pointer.dart';
 import 'search_bar.dart';
 

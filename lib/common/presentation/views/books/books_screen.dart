@@ -7,7 +7,6 @@ import 'package:riverpod_extension/riverpod_extension.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/hooks.dart';
 import '../../widgets/website_header.dart';
-import '../home_screen.dart';
 import 'view_model/books_notifier.dart';
 import 'widgets/book_detail_card.dart';
 import 'widgets/book_pdf_previewer.dart';
@@ -29,8 +28,7 @@ class BooksScreen extends HookWidget {
 
     useEffect(() {
       Future.microtask(() async => controller.setBooksList());
-      final headerHeight =
-          navigationBarHeight + libraryStatusBarHeight + searchContainerHeight;
+    
       scrollController.addListener(() {
         if (scrollController.position.pixels >= headerHeight) {
           isHeaderHidden.value = false;
