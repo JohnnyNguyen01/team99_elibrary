@@ -3,9 +3,6 @@ enum AccountMenuOptions {
   /// dashboard
   dashboard,
 
-  /// fines
-  fines,
-
   /// sign out
   signOut,
 }
@@ -17,8 +14,6 @@ extension AccountMenuOptionsExtension on AccountMenuOptions {
     switch (this) {
       case AccountMenuOptions.dashboard:
         return 'Dashboard';
-      case AccountMenuOptions.fines:
-        return 'Fines';
       case AccountMenuOptions.signOut:
         return 'Sign Out';
     }

@@ -4,6 +4,7 @@ import 'package:riverpod_navigation/riverpod_navigation.dart';
 
 import '../../../authentication/presentation/views/sign_in_screen.dart';
 import '../../presentation/views/books/books_screen.dart';
+import '../../presentation/views/dashboard/dashboard.dart';
 import '../../presentation/views/home_screen.dart';
 import '../../presentation/views/loading_screen.dart';
 import 'providers.dart';
@@ -40,6 +41,12 @@ final _authenticated = RouteDefinition(
         builder: (_, __, ___, ____) => const MaterialPage<void>(
           child: BooksScreen(),
           fullscreenDialog: true,
+        ),
+      ),
+      RouteDefinition(
+        template: uriToTemplate(RoutePath.dashboard),
+        builder: (_, __, ___, ____) => const MaterialPage<void>(
+          child: DashBoard(),
         ),
       ),
     ]);
