@@ -8,6 +8,7 @@ class BookDetailCard extends HookWidget {
   const BookDetailCard({
     required final this.imageUrl,
     required final this.title,
+    final this.onCardTap,
   });
 
   /// Image url
@@ -16,6 +17,8 @@ class BookDetailCard extends HookWidget {
   /// Card title
   final String title;
 
+  /// Callback for when the card overlay is tapped
+  final VoidCallback? onCardTap;
   static const _maxWidth = 190.0;
   static const _maxHeight = 280.0;
 
@@ -49,10 +52,13 @@ class BookDetailCard extends HookWidget {
                   ),
                   Visibility(
                     visible: imageIsHoveredOver.value,
-                    child: Container(
-                      width: _maxWidth,
-                      height: _maxHeight,
-                      color: Colors.black.withOpacity(0.2),
+                    child: GestureDetector(
+                      onTap: onCardTap,
+                      child: Container(
+                        width: _maxWidth,
+                        height: _maxHeight,
+                        color: Colors.black.withOpacity(0.2),
+                      ),
                     ),
                   ),
                   Visibility(

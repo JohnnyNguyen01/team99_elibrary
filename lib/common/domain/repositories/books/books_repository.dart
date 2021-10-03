@@ -14,8 +14,9 @@ import 'books_facade.dart';
 /// BooksRepository interface.
 class BooksRepository implements IBooksRepository {
   /// [BooksRepository] constructor
-  const BooksRepository({required FirebaseFirestore firestore})
-      : _firestore = firestore;
+  const BooksRepository({
+    required FirebaseFirestore firestore,
+  })  : _firestore = firestore;
 
   final FirebaseFirestore _firestore;
 
@@ -43,7 +44,7 @@ class BooksRepository implements IBooksRepository {
         await _firestore.collection(booksCollection).doc(doc.id).delete();
       }
       return const Left(
-        SuccessResponse(message: 'All books deleted successfully'),
+        SuccessResponse<void>(message: 'All books deleted successfully'),
       );
     } on FirebaseException catch (e) {
       return Right(
@@ -61,7 +62,7 @@ class BooksRepository implements IBooksRepository {
       if (doc.exists) {
         await docRef.delete();
         return const Left(
-            SuccessResponse(message: 'Book deleted successfully'));
+            SuccessResponse<void>(message: 'Book deleted successfully'));
       } else {
         return const Right(FailureState('No such book exists'));
       }
