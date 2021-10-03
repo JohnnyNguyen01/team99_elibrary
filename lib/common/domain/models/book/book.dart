@@ -13,6 +13,7 @@ class Book with _$Book {
     String? authorId,
     List<String>? categories,
     String? imageUrl,
+    String? downloadUrl,
   }) = _Book;
 
   const Book._();

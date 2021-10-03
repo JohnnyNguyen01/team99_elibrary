@@ -16,10 +16,12 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$SuccessResponseTearOff {
   const _$SuccessResponseTearOff();
 
-  _SuccessResponse call({required String message, String? code}) {
-    return _SuccessResponse(
+  _SuccessResponse<T> call<T>(
+      {required String message, String? code, T? payload}) {
+    return _SuccessResponse<T>(
       message: message,
       code: code,
+      payload: payload,
     );
   }
 }
@@ -28,36 +30,38 @@ class _$SuccessResponseTearOff {
 const $SuccessResponse = _$SuccessResponseTearOff();
 
 /// @nodoc
-mixin _$SuccessResponse {
+mixin _$SuccessResponse<T> {
   String get message => throw _privateConstructorUsedError;
   String? get code => throw _privateConstructorUsedError;
+  T? get payload => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $SuccessResponseCopyWith<SuccessResponse> get copyWith =>
+  $SuccessResponseCopyWith<T, SuccessResponse<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SuccessResponseCopyWith<$Res> {
+abstract class $SuccessResponseCopyWith<T, $Res> {
   factory $SuccessResponseCopyWith(
-          SuccessResponse value, $Res Function(SuccessResponse) then) =
-      _$SuccessResponseCopyWithImpl<$Res>;
-  $Res call({String message, String? code});
+          SuccessResponse<T> value, $Res Function(SuccessResponse<T>) then) =
+      _$SuccessResponseCopyWithImpl<T, $Res>;
+  $Res call({String message, String? code, T? payload});
 }
 
 /// @nodoc
-class _$SuccessResponseCopyWithImpl<$Res>
-    implements $SuccessResponseCopyWith<$Res> {
+class _$SuccessResponseCopyWithImpl<T, $Res>
+    implements $SuccessResponseCopyWith<T, $Res> {
   _$SuccessResponseCopyWithImpl(this._value, this._then);
 
-  final SuccessResponse _value;
+  final SuccessResponse<T> _value;
   // ignore: unused_field
-  final $Res Function(SuccessResponse) _then;
+  final $Res Function(SuccessResponse<T>) _then;
 
   @override
   $Res call({
     Object? message = freezed,
     Object? code = freezed,
+    Object? payload = freezed,
   }) {
     return _then(_value.copyWith(
       message: message == freezed
@@ -68,37 +72,42 @@ class _$SuccessResponseCopyWithImpl<$Res>
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String?,
+      payload: payload == freezed
+          ? _value.payload
+          : payload // ignore: cast_nullable_to_non_nullable
+              as T?,
     ));
   }
 }
 
 /// @nodoc
-abstract class _$SuccessResponseCopyWith<$Res>
-    implements $SuccessResponseCopyWith<$Res> {
+abstract class _$SuccessResponseCopyWith<T, $Res>
+    implements $SuccessResponseCopyWith<T, $Res> {
   factory _$SuccessResponseCopyWith(
-          _SuccessResponse value, $Res Function(_SuccessResponse) then) =
-      __$SuccessResponseCopyWithImpl<$Res>;
+          _SuccessResponse<T> value, $Res Function(_SuccessResponse<T>) then) =
+      __$SuccessResponseCopyWithImpl<T, $Res>;
   @override
-  $Res call({String message, String? code});
+  $Res call({String message, String? code, T? payload});
 }
 
 /// @nodoc
-class __$SuccessResponseCopyWithImpl<$Res>
-    extends _$SuccessResponseCopyWithImpl<$Res>
-    implements _$SuccessResponseCopyWith<$Res> {
+class __$SuccessResponseCopyWithImpl<T, $Res>
+    extends _$SuccessResponseCopyWithImpl<T, $Res>
+    implements _$SuccessResponseCopyWith<T, $Res> {
   __$SuccessResponseCopyWithImpl(
-      _SuccessResponse _value, $Res Function(_SuccessResponse) _then)
-      : super(_value, (v) => _then(v as _SuccessResponse));
+      _SuccessResponse<T> _value, $Res Function(_SuccessResponse<T>) _then)
+      : super(_value, (v) => _then(v as _SuccessResponse<T>));
 
   @override
-  _SuccessResponse get _value => super._value as _SuccessResponse;
+  _SuccessResponse<T> get _value => super._value as _SuccessResponse<T>;
 
   @override
   $Res call({
     Object? message = freezed,
     Object? code = freezed,
+    Object? payload = freezed,
   }) {
-    return _then(_SuccessResponse(
+    return _then(_SuccessResponse<T>(
       message: message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -107,58 +116,71 @@ class __$SuccessResponseCopyWithImpl<$Res>
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String?,
+      payload: payload == freezed
+          ? _value.payload
+          : payload // ignore: cast_nullable_to_non_nullable
+              as T?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_SuccessResponse implements _SuccessResponse {
-  const _$_SuccessResponse({required this.message, this.code});
+class _$_SuccessResponse<T> implements _SuccessResponse<T> {
+  const _$_SuccessResponse({required this.message, this.code, this.payload});
 
   @override
   final String message;
   @override
   final String? code;
+  @override
+  final T? payload;
 
   @override
   String toString() {
-    return 'SuccessResponse(message: $message, code: $code)';
+    return 'SuccessResponse<$T>(message: $message, code: $code, payload: $payload)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SuccessResponse &&
+        (other is _SuccessResponse<T> &&
             (identical(other.message, message) ||
                 const DeepCollectionEquality()
                     .equals(other.message, message)) &&
             (identical(other.code, code) ||
-                const DeepCollectionEquality().equals(other.code, code)));
+                const DeepCollectionEquality().equals(other.code, code)) &&
+            (identical(other.payload, payload) ||
+                const DeepCollectionEquality().equals(other.payload, payload)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(message) ^
-      const DeepCollectionEquality().hash(code);
+      const DeepCollectionEquality().hash(code) ^
+      const DeepCollectionEquality().hash(payload);
 
   @JsonKey(ignore: true)
   @override
-  _$SuccessResponseCopyWith<_SuccessResponse> get copyWith =>
-      __$SuccessResponseCopyWithImpl<_SuccessResponse>(this, _$identity);
+  _$SuccessResponseCopyWith<T, _SuccessResponse<T>> get copyWith =>
+      __$SuccessResponseCopyWithImpl<T, _SuccessResponse<T>>(this, _$identity);
 }
 
-abstract class _SuccessResponse implements SuccessResponse {
-  const factory _SuccessResponse({required String message, String? code}) =
-      _$_SuccessResponse;
+abstract class _SuccessResponse<T> implements SuccessResponse<T> {
+  const factory _SuccessResponse(
+      {required String message,
+      String? code,
+      T? payload}) = _$_SuccessResponse<T>;
 
   @override
   String get message => throw _privateConstructorUsedError;
   @override
   String? get code => throw _privateConstructorUsedError;
   @override
+  T? get payload => throw _privateConstructorUsedError;
+  @override
   @JsonKey(ignore: true)
-  _$SuccessResponseCopyWith<_SuccessResponse> get copyWith =>
+  _$SuccessResponseCopyWith<T, _SuccessResponse<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -21,4 +21,5 @@ abstract class IBooksRepository {
 
   /// Deletes all books from the database
   Future<Either<SuccessResponse, FailureState>> deleteAllBooks();
+
 }

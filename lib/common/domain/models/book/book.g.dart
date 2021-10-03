@@ -15,6 +15,7 @@ _$_Book _$_$_BookFromJson(Map<String, dynamic> json) {
         ?.map((e) => e as String)
         .toList(),
     imageUrl: json['imageUrl'] as String?,
+    downloadUrl: json['downloadUrl'] as String?,
   );
 }
 
@@ -24,4 +25,5 @@ Map<String, dynamic> _$_$_BookToJson(_$_Book instance) => <String, dynamic>{
       'authorId': instance.authorId,
       'categories': instance.categories,
       'imageUrl': instance.imageUrl,
+      'downloadUrl': instance.downloadUrl,
     };

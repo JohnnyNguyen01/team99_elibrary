@@ -10,6 +10,7 @@ import '../../widgets/website_header.dart';
 import '../home_screen.dart';
 import 'view_model/books_notifier.dart';
 import 'widgets/book_detail_card.dart';
+import 'widgets/book_pdf_previewer.dart';
 
 /// Books Screen
 class BooksScreen extends HookWidget {
@@ -64,8 +65,9 @@ class BooksScreen extends HookWidget {
           : null,
       body: NestedScrollView(
         controller: scrollController,
-        headerSliverBuilder: (final context, final innerIsScrolled) =>
-            [const WebsiteHeader()],
+        headerSliverBuilder: (final context, final innerIsScrolled) => [
+          const WebsiteHeader(),
+        ],
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -84,7 +86,7 @@ class BooksScreen extends HookWidget {
                     const SizedBox(height: 12),
                     GridView.count(
                       shrinkWrap: true,
-                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 12,
                       childAspectRatio: 0.3,
                       // TODO: Make responseive 2 for phone views
                       crossAxisCount: setGridViewSize(),
@@ -93,6 +95,11 @@ class BooksScreen extends HookWidget {
                           BookDetailCard(
                             imageUrl: book.imageUrl ?? '',
                             title: book.name ?? '',
+                            onCardTap: () async => showDialog<void>(
+                              context: context,
+                              builder: (final context) => BookPdfPreviewer(
+                                  bookPdfUrl: book.downloadUrl ?? ''),
+                            ),
                           )
                       ],
                     ),
