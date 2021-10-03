@@ -40,22 +40,6 @@ class BooksScreen extends HookWidget {
       });
     }, [state]);
 
-    // TODO: Move to view-model
-    int setGridViewSize() {
-      final screenWidth = screenSize.width;
-      if (screenWidth > largeScreenWidth) {
-        return 6;
-      } else if (screenWidth <= largeScreenWidth &&
-          screenWidth >= mediumScreenWidth) {
-        return 4;
-      } else if (screenWidth <= mediumScreenWidth &&
-          screenWidth >= smallScreenWidth) {
-        return 3;
-      } else {
-        return 2;
-      }
-    }
-
     return Scaffold(
       appBar: !isHeaderHidden.value
           ? const PreferredSize(
@@ -88,8 +72,8 @@ class BooksScreen extends HookWidget {
                       shrinkWrap: true,
                       mainAxisSpacing: 12,
                       childAspectRatio: 0.3,
-                      // TODO: Make responseive 2 for phone views
-                      crossAxisCount: setGridViewSize(),
+                      crossAxisCount: controller.setGridViewSize(
+                          screenWidth: screenSize.width),
                       children: [
                         for (final book in state.books)
                           BookDetailCard(
