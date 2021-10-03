@@ -13,6 +13,7 @@ import 'common/utils/themes.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
   Future.microtask(() async {
     await Firebase.initializeApp();
     await FirebaseAuth.instance.setPersistence(Persistence.NONE);
@@ -85,6 +86,7 @@ class _NavigationApp extends HookWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp.router(
+        debugShowCheckedModeBanner: false,
         routerDelegate: _delegate,
         routeInformationParser: _parser,
         theme: appThemeLight,

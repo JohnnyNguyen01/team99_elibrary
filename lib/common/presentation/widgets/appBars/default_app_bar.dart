@@ -9,6 +9,7 @@ import '../../../utils/constants.dart';
 import '../../../utils/extensions/build_context.dart';
 import '../../../utils/hooks.dart';
 import '../mouse_region_pointer.dart';
+import '../user_avatar_menu.dart';
 
 /// Default app bar to show beneath sliver
 // ignore: avoid_implementing_value_types
@@ -42,6 +43,12 @@ class DefaultAppBar extends HookWidget implements PreferredSize {
           height: 64,
         ),
       ),
+      actions: const [
+        Padding(
+          padding: EdgeInsets.all(8),
+          child: UserAvatarMenu(),
+        )
+      ],
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(navigationBarHeight),
         child: Container(

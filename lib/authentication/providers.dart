@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../common/utils/firestore.dart';
 
 import 'domain/user.dart' as model;
 import 'infrastructure/auth_implementation.dart';
@@ -12,7 +14,10 @@ final firebaseAuthinstanceProvider =
 /// implemenation
 final firebaseAuthRepoProvider = Provider<FirebaseAuthImplementation>((ref) {
   final authInstance = ref.watch(firebaseAuthinstanceProvider);
-  return FirebaseAuthImplementation(authInstance: authInstance);
+  return FirebaseAuthImplementation(
+    authInstance: authInstance,
+    firestore: FirebaseFirestore.instance,
+  );
 });
 
 /// [StreamProvider] for Firebase's auth state changes
@@ -28,12 +33,18 @@ final currentUserStreamProvider =
   // TODO: Retrieve user for firestore
   final firebaseUser = ref.watch(firebaseAuthStateStreamProvider).data?.value;
   if (firebaseUser != null) {
+    final userDoc = await FirebaseFirestore.instance
+        .collection(usersCollection)
+        .doc(firebaseUser.uid)
+        .get();
+    final imageUrl = userDoc.data()?['imageUrl'] as String?;
     yield model.User(
         uid: firebaseUser.uid,
         email: firebaseUser.email ?? '',
         isAdmin: true,
         firstName: 'Johnny',
-        lastName: 'Nguyen');
+        lastName: 'Nguyen',
+        imageUrl: imageUrl);
   } else {
     yield null;
   }
