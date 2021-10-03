@@ -6,10 +6,11 @@ import 'package:riverpod_navigation/riverpod_navigation.dart';
 
 import '../../infrastructure/routes/routes.dart';
 import '../../utils/constants.dart';
-import '../../utils/extensions/build_context.dart' ;
+import '../../utils/extensions/build_context.dart';
 import '../../utils/hooks.dart';
 import 'mouse_region_pointer.dart';
 import 'search_bar.dart';
+import 'user_avatar_menu.dart';
 
 final _mockRoutes = [
   'Books',
@@ -31,7 +32,7 @@ class WebsiteHeader extends HookWidget {
     final theme = useTheme();
     final screenSize = useScreenSize();
     final navigator = useProvider(navigationProvider.notifier);
-    
+
     return SliverAppBar(
       centerTitle: false,
       toolbarHeight: appBarheight,
@@ -43,6 +44,12 @@ class WebsiteHeader extends HookWidget {
           height: 64,
         ),
       ),
+      actions: const [
+        Padding(
+          padding: EdgeInsets.only(right: 8),
+          child: UserAvatarMenu(),
+        )
+      ],
       bottom: PreferredSize(
         preferredSize: Size(
           screenSize.width,
