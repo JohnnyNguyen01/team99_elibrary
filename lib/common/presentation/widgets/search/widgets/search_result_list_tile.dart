@@ -60,39 +60,3 @@ class SearchResultListTile extends HookWidget {
         onTap: onTap,
       );
 }
-
-// Padding(
-//         padding: const EdgeInsets.all(4),
-//         child: SizedBox(
-//           height: 40,
-//           child: Row(
-//             children: [
-//               if (imageUrl != null)
-//                 Expanded(
-//                   child: Image.network(
-//                     imageUrl ?? '',
-//                     width: 20,
-//                     height: 40,
-//                     fit: BoxFit.cover,
-//                   ),
-//                 ),
-//               Expanded(
-//                 flex: 3,
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     HighlightText(
-//                       text: title,
-//                       emphasizedText: query ?? '',
-//                     ),
-//                     HighlightText(
-//                       text: subtitle,
-//                       emphasizedText: query ?? '',
-//                     )
-//                   ],
-//                 ),
-//               )
-//             ],
-//           ),
-//         ),
-//       );

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_extension/riverpod_extension.dart';
+import 'package:team99_elibrary/common/presentation/widgets/appBars/default_app_bar.dart';
+import 'package:team99_elibrary/common/presentation/widgets/search/search_bar.dart';
 
 import '../../../utils/constants.dart';
 import '../../../utils/hooks.dart';
@@ -28,7 +30,7 @@ class BooksScreen extends HookWidget {
 
     useEffect(() {
       Future.microtask(() async => controller.setBooksList());
-    
+
       scrollController.addListener(() {
         if (scrollController.position.pixels >= headerHeight) {
           isHeaderHidden.value = false;
@@ -39,57 +41,56 @@ class BooksScreen extends HookWidget {
     }, [state]);
 
     return Scaffold(
-      appBar: !isHeaderHidden.value
-          ? const PreferredSize(
-              preferredSize: Size.fromHeight(kToolbarHeight),
-              child: _InnerAppBar(),
-            )
-          : null,
-      body: NestedScrollView(
-        controller: scrollController,
-        headerSliverBuilder: (final context, final innerIsScrolled) => [
-          const WebsiteHeader(),
-        ],
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const SizedBox(height: 16),
-                    Text(
-                      'Books',
-                      style: theme.textTheme.headline4,
-                    ),
-                    const SizedBox(height: 12),
-                    GridView.count(
-                      shrinkWrap: true,
-                      mainAxisSpacing: 12,
-                      childAspectRatio: 0.3,
-                      crossAxisCount: controller.setGridViewSize(
-                          screenWidth: screenSize.width),
-                      children: [
-                        for (final book in state.books)
-                          BookDetailCard(
-                            imageUrl: book.imageUrl ?? '',
-                            title: book.name ?? '',
-                            onCardTap: () async => showDialog<void>(
-                              context: context,
-                              builder: (final context) => BookPdfPreviewer(
-                                  bookPdfUrl: book.downloadUrl ?? ''),
-                            ),
-                          )
-                      ],
-                    ),
-                  ],
-                ),
+      appBar: const DefaultAppBar(),
+      body: SingleChildScrollView(
+        child: Stack(
+          alignment: Alignment.topCenter,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 16,
               ),
-            ],
-          ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(height: 16),
+                  Text(
+                    'Books',
+                    style: theme.textTheme.headline4,
+                  ),
+                  const SizedBox(height: 12),
+                  GridView.count(
+                    shrinkWrap: true,
+                    mainAxisSpacing: 12,
+                    childAspectRatio: 0.3,
+                    crossAxisCount: controller.setGridViewSize(
+                        screenWidth: screenSize.width),
+                    children: [
+                      for (final book in state.books)
+                        BookDetailCard(
+                          imageUrl: book.imageUrl ?? '',
+                          title: book.name ?? '',
+                          onCardTap: () async => showDialog<void>(
+                            context: context,
+                            builder: (final context) => BookPdfPreviewer(
+                                bookPdfUrl: book.downloadUrl ?? ''),
+                          ),
+                        )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxHeight: 600,
+                maxWidth: 800,
+              ),
+              child: const SearchBar(),
+            ),
+          ],
         ),
       ),
     );
