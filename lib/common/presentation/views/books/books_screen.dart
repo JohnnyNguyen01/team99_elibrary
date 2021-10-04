@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_extension/riverpod_extension.dart';
+import '../../../infrastructure/routes/routes.dart';
 
 import '../../../utils/constants.dart';
 import '../../../utils/hooks.dart';
 import '../../widgets/appBars/default_app_bar.dart';
 import '../../widgets/search/search_bar.dart';
-import 'view_model/books_notifier.dart';
+import 'view_model/books_view/books_notifier.dart';
 import 'widgets/book_detail_card.dart';
 import 'widgets/book_pdf_previewer.dart';
 
@@ -71,6 +72,10 @@ class BooksScreen extends HookWidget {
                         BookDetailCard(
                           imageUrl: book.imageUrl ?? '',
                           title: book.name ?? '',
+                          onInfoButtonTap: () {
+                            context.pushRoute(
+                                RoutePath.bookDetails(uid: book.uid));
+                          },
                           onCardTap: () async => showDialog<void>(
                             context: context,
                             builder: (final context) => BookPdfPreviewer(
@@ -92,22 +97,6 @@ class BooksScreen extends HookWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _InnerAppBar extends HookWidget {
-  const _InnerAppBar();
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = useTheme();
-    return AppBar(
-      elevation: 4,
-      backgroundColor: theme.colorScheme.background,
-      leadingWidth: 200,
-      leading: Image.asset('$assetImagePath/wsu_logo.png'),
-      title: const CupertinoSearchTextField(),
     );
   }
 }

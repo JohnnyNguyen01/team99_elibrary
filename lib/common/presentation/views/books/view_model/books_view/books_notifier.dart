@@ -1,8 +1,8 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../domain/repositories/books/books_facade.dart';
-import '../../../../infrastructure/routes/providers.dart';
-import '../../../../utils/constants.dart';
+import '../../../../../domain/repositories/books/books_facade.dart';
+import '../../../../../infrastructure/routes/providers.dart';
+import '../../../../../utils/constants.dart';
 import 'books_view_model.dart';
 
 /// The [BooksScreenNotifier] provider

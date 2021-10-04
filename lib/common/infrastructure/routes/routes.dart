@@ -13,4 +13,20 @@ class RoutePath {
 
   /// Dashboard route path
   static final dashboard = Uri(path: '/dashboard');
+
+  /// book details route path
+  static Uri bookDetails({final String? uid}) => Uri(
+        path: '/book-details/${uid ?? ':${RouteParameters.uid}'}',
+        queryParameters: <String, dynamic>{
+          RouteParameters.uid: uid,
+        },
+      );
+}
+
+/// Route Parameters
+class RouteParameters {
+  const RouteParameters._();
+
+  /// uid param
+  static const uid = 'uid';
 }

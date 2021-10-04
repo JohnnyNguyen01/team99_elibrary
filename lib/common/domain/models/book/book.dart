@@ -14,6 +14,7 @@ class Book with _$Book {
     List<String>? categories,
     String? imageUrl,
     String? downloadUrl,
+    String? description,
   }) = _Book;
 
   const Book._();

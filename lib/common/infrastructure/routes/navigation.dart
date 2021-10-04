@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_navigation/riverpod_navigation.dart';
 
 import '../../../authentication/presentation/views/sign_in_screen.dart';
+import '../../presentation/views/books/book_detail_screen.dart';
 import '../../presentation/views/books/books_screen.dart';
 import '../../presentation/views/dashboard/dashboard.dart';
 import '../../presentation/views/home_screen.dart';
@@ -37,12 +38,22 @@ final _authenticated = RouteDefinition(
         ),
     next: [
       RouteDefinition(
-        template: uriToTemplate(RoutePath.books),
-        builder: (_, __, ___, ____) => const MaterialPage<void>(
-          child: BooksScreen(),
-          fullscreenDialog: true,
-        ),
-      ),
+          template: uriToTemplate(RoutePath.books),
+          builder: (_, __, ___, ____) => const MaterialPage<void>(
+                child: BooksScreen(),
+                fullscreenDialog: true,
+              ),
+          next: [
+            RouteDefinition(
+              template: uriToTemplate(
+                RoutePath.bookDetails(),
+              ),
+              builder: (_, entry, __, ____) => MaterialPage<void>(
+                child: BookDetailScreen(
+                    bookUid: entry.parameters[RouteParameters.uid]),
+              ),
+            ),
+          ]),
       RouteDefinition(
         template: uriToTemplate(RoutePath.dashboard),
         builder: (_, __, ___, ____) => const MaterialPage<void>(
