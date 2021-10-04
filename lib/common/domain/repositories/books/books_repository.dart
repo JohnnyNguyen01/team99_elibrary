@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 
 import '../../../utils/firestore.dart';
 import '../../models/book/book.dart';
+import '../../models/book_instance/book_instance.dart';
 import '../../models/failure/failure.dart';
 import '../../models/success/success.dart';
 import 'books_facade.dart';
@@ -16,7 +17,7 @@ class BooksRepository implements IBooksRepository {
   /// [BooksRepository] constructor
   const BooksRepository({
     required FirebaseFirestore firestore,
-  })  : _firestore = firestore;
+  }) : _firestore = firestore;
 
   final FirebaseFirestore _firestore;
 
@@ -75,10 +76,28 @@ class BooksRepository implements IBooksRepository {
   Future<Either<List<Book>, FailureState>> fetchAllBooks() async {
     try {
       final booksList = <Book>[];
+      var numberAvailable = 0;
       final querySnapshot = await _firestore.collection(booksCollection).get();
       final bookSnapshots = querySnapshot.docs;
       for (final snapshot in bookSnapshots) {
-        booksList.add(Book.fromJson(snapshot.data()));
+        final book = Book.fromJson(snapshot.data());
+        // TODO: This is not optimal, but I don't have time for proper
+        // implementation. Refactor if possible me. [Johnny]
+        final instances = await _firestore
+            .collection(booksCollection)
+            .doc(book.uid)
+            .collection(instancesCollection)
+            .get();
+        for (final snapshot in instances.docs) {
+          final bookInstance = BookInstance.fromJson(snapshot.data());
+          if (bookInstance.isAvailable) {
+            numberAvailable = numberAvailable + 1;
+          }
+        }
+        booksList.add(
+          book.copyWith(numberAvailable: numberAvailable),
+        );
+        numberAvailable = 0;
       }
       return Left(booksList);
     } on FirebaseException catch (e) {
@@ -90,13 +109,62 @@ class BooksRepository implements IBooksRepository {
   Future<Either<Book, FailureState>> fetchBookByUid(
       {required String uid}) async {
     try {
+      var numberAvailable = 0;
       final doc = await _firestore.collection(booksCollection).doc(uid).get();
       final docData = doc.data();
       if (doc.exists && docData != null) {
-        return Left(Book.fromJson(docData));
+        final book = Book.fromJson(docData);
+        final instances = await _firestore
+            .collection(booksCollection)
+            .doc(book.uid)
+            .collection(instancesCollection)
+            .get();
+        for (final snapshot in instances.docs) {
+          final bookInstance = BookInstance.fromJson(snapshot.data());
+          if (bookInstance.isAvailable) {
+            numberAvailable = numberAvailable + 1;
+          }
+        }
+        return Left(book.copyWith(numberAvailable: numberAvailable));
       } else {
         return const Right(FailureState("The requested book doesn't exist "));
       }
+    } on FirebaseException catch (e) {
+      return Right(FailureState(e.message));
+    }
+  }
+
+  @override
+  Future<Either<BookInstance, FailureState>> fetchFirstFreeBookInstance(
+      {required String uid}) async {
+    try {
+      final snapshot = await _firestore
+          .collection(booksCollection)
+          .doc(uid)
+          .collection(instancesCollection)
+          .where(isAvailable, isEqualTo: true)
+          .limit(1)
+          .get();
+      final instance = BookInstance.fromJson(
+        snapshot.docs.first.data(),
+      );
+      return Left(instance);
+    } on FirebaseException catch (e) {
+      return Right(FailureState(e.message));
+    }
+  }
+
+  @override
+  Future<Either<void, FailureState>> updateBookInstance(
+      {required BookInstance bookInstance}) async {
+    try {
+      await _firestore
+          .collection(booksCollection)
+          .doc(bookInstance.bookUid)
+          .collection(instancesCollection)
+          .doc(bookInstance.uid)
+          .update(bookInstance.toJson());
+      return const Left(null);
     } on FirebaseException catch (e) {
       return Right(FailureState(e.message));
     }

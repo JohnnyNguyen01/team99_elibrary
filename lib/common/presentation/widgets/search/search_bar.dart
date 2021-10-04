@@ -26,7 +26,7 @@ class SearchBar extends HookWidget {
       physics: const BouncingScrollPhysics(),
       openAxisAlignment: 0,
       backdropColor: Colors.transparent,
-      debounceDelay: const Duration(milliseconds: 700),
+      debounceDelay: const Duration(milliseconds: 500),
       onQueryChanged: (query) async {
         query.isEmpty
             ? viewController.emptySearchResults()
@@ -36,7 +36,7 @@ class SearchBar extends HookWidget {
       actions: [
         FloatingSearchBarAction(
           child: CircularButton(
-            icon: const Icon(Icons.place),
+            icon: const Icon(Icons.search),
             onPressed: () {},
           ),
         ),
@@ -46,8 +46,7 @@ class SearchBar extends HookWidget {
       ],
       builder: (context, transition) => ClipRRect(
         borderRadius: BorderRadius.circular(8),
-        child: Material(
-          color: theme.colorScheme.surface,
+        child: Card(
           elevation: 4,
           child: ListView.builder(
             shrinkWrap: true,

@@ -10,6 +10,8 @@ import '../../domain/repositories/books/books_facade.dart';
 import '../../domain/repositories/books/books_repository.dart';
 import '../../domain/repositories/search/algolia.dart';
 import '../../domain/repositories/search/search.dart';
+import '../../domain/repositories/user/user_repository.dart';
+import '../../domain/repositories/user/user_repository_facade.dart';
 
 /// Provides [StreamProvider] of app state changes
 final appStateStreamProvider = StreamProvider.autoDispose<AppState>((ref) {
@@ -26,15 +28,22 @@ final appStateStreamProvider = StreamProvider.autoDispose<AppState>((ref) {
 final dioHttpProvider = Provider<Dio>((_) => Dio());
 
 /// [BooksRepository] provider
-final booksRepositoryProvider = Provider<IBooksRepository>((ref) {
+final booksRepositoryProvider = Provider.autoDispose<IBooksRepository>((ref) {
   final firestore = FirebaseFirestore.instance;
   return BooksRepository(firestore: firestore);
 });
 
 /// [SearchRepository] Provider
-final searchRepositoryProvider = Provider<SearchRepository>((ref) {
+final searchRepositoryProvider = Provider.autoDispose<SearchRepository>((ref) {
   final algoliaClient = const Algolia.init(
           applicationId: algoliaApplicationIDKey, apiKey: algoliaSearchAPIKey)
-      .instance.index('team99_books');
-      return AlgoliaSearchRepository(algoliaClient: algoliaClient);
+      .instance
+      .index('team99_books');
+  return AlgoliaSearchRepository(algoliaClient: algoliaClient);
+});
+
+/// [UserRepository] Provider
+final userRepositoryProvider = Provider.autoDispose<IUserRepository>((ref) {
+  final firestore = FirebaseFirestore.instance;
+  return UserRepository(firestore: firestore);
 });

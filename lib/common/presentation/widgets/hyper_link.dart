@@ -32,8 +32,7 @@ class HyperLink extends HookWidget {
         isHovered.value = false;
       },
       child: GestureDetector(
-        onTap: () {
-        },
+        onTap: () {},
         child: Text(
           label,
           style: theme.textTheme.bodyText2?.copyWith(

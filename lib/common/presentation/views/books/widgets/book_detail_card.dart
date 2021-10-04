@@ -5,19 +5,22 @@ import 'package:riverpod_extension/riverpod_extension.dart';
 /// Book Detail Card
 class BookDetailCard extends HookWidget {
   /// [BookDetailCard] constructor
-  const BookDetailCard({
-    required final this.imageUrl,
-    required final this.title,
-    final this.onBorrowButtonTap,
-    final this.onInfoButtonTap,
-    final this.onCardTap,
-  });
+  const BookDetailCard(
+      {required final this.imageUrl,
+      required final this.title,
+      final this.onBorrowButtonTap,
+      final this.onInfoButtonTap,
+      final this.onCardTap,
+      final this.numberAvailable});
 
   /// Image url
   final String imageUrl;
 
   /// Card title
   final String title;
+
+  /// Available books
+  final int? numberAvailable;
 
   /// Borrow button callback
   final VoidCallback? onBorrowButtonTap;
@@ -97,7 +100,7 @@ class BookDetailCard extends HookWidget {
           Row(
             children: [
               SelectableText(
-                'availability: 2',
+                'availability: $numberAvailable',
                 style: theme.textTheme.caption,
               ),
             ],
@@ -105,10 +108,27 @@ class BookDetailCard extends HookWidget {
           const SizedBox(height: 8),
           Row(
             children: [
-              ElevatedButton(
-                onPressed: onBorrowButtonTap,
-                child: const Text('Borrow'),
-              ),
+              if (numberAvailable != null && numberAvailable! > 0)
+                ElevatedButton(
+                  onPressed: numberAvailable != null && numberAvailable! > 0
+                      ? onBorrowButtonTap
+                      : null,
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.resolveWith(
+                      (_) => const Color(0xffffe082),
+                    ),
+                  ),
+                  child: Text(
+                    'Borrow',
+                    style: theme.textTheme.bodyText2
+                        ?.copyWith(color: theme.colorScheme.onSurface),
+                  ),
+                )
+              else
+                SelectableText(
+                  'Out of stock',
+                  style: theme.textTheme.caption,
+                ),
               const SizedBox(width: 8),
               ElevatedButton(
                 onPressed: onInfoButtonTap,

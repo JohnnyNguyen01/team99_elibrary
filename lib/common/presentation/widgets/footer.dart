@@ -11,9 +11,8 @@ class WebsiteFooter extends HookWidget {
   Widget build(BuildContext context) {
     final screenSize = useScreenSize();
     return Container(
-      width: screenSize.width,
-      height: _footerHeight,
-      color: const Color.fromRGBO(249, 248, 246, 1)
-    );
+        width: screenSize.width,
+        height: _footerHeight,
+        color: const Color.fromRGBO(249, 248, 246, 1));
   }
 }
