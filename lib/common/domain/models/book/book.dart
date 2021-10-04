@@ -15,6 +15,7 @@ class Book with _$Book {
     String? imageUrl,
     String? downloadUrl,
     String? description,
+    @Default(0) int numberAvailable,
   }) = _Book;
 
   const Book._();

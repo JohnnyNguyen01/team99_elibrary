@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_extension/riverpod_extension.dart';
-import '../../../infrastructure/routes/routes.dart';
 
+import '../../../infrastructure/routes/routes.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/hooks.dart';
 import '../../widgets/appBars/default_app_bar.dart';
@@ -12,6 +12,7 @@ import '../../widgets/search/search_bar.dart';
 import 'view_model/books_view/books_notifier.dart';
 import 'widgets/book_detail_card.dart';
 import 'widgets/book_pdf_previewer.dart';
+import 'widgets/borrow_confirmation_dialog.dart';
 
 /// Books Screen
 class BooksScreen extends HookWidget {
@@ -25,7 +26,6 @@ class BooksScreen extends HookWidget {
     final screenSize = useScreenSize();
     final scrollController = useScrollController();
     final isHeaderHidden = useState(true);
-
     final theme = useTheme();
 
     useEffect(() {
@@ -41,6 +41,7 @@ class BooksScreen extends HookWidget {
     }, [state]);
 
     return Scaffold(
+      backgroundColor: theme.backgroundColor,
       appBar: const DefaultAppBar(),
       body: SingleChildScrollView(
         child: Stack(
@@ -72,6 +73,23 @@ class BooksScreen extends HookWidget {
                         BookDetailCard(
                           imageUrl: book.imageUrl ?? '',
                           title: book.name ?? '',
+                          numberAvailable: book.numberAvailable,
+                          onBorrowButtonTap: () => showDialog<void>(
+                            context: context,
+                            builder: (_) => BorrowConfirmationDialog(
+                              book: book,
+                              onConfirmTap: () async {
+                                await controller.handleBorrowButton(book: book);
+                                useSnackBar(
+                                  context: context,
+                                  color: Colors.green,
+                                  message:
+                                      'Book successfully added to your account',
+                                );
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ),
                           onInfoButtonTap: () {
                             context.pushRoute(
                                 RoutePath.bookDetails(uid: book.uid));

@@ -1,8 +1,14 @@
 /// Books collection reference
 const booksCollection = 'Books';
 
+/// Currently Borrowed Collection
+const currentlyBorrowedCollection = 'currentlyBorrowed';
+
 /// Users Collection
 const usersCollection = 'Users';
+
+/// instances Colleciton
+const instancesCollection = 'instances';
 
 /// AuthorID field
 const authorId = 'authorId';
@@ -30,3 +36,6 @@ const email = 'email';
 
 /// is admin field
 const isAdmin = 'isAdmin';
+
+/// isAvailable field
+const isAvailable = 'isAvailable';

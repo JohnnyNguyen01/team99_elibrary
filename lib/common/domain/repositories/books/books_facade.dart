@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import '../../models/book/book.dart';
+import '../../models/book_instance/book_instance.dart';
 import '../../models/failure/failure.dart';
 import '../../models/success/success.dart';
 
@@ -22,4 +23,11 @@ abstract class IBooksRepository {
   /// Deletes all books from the database
   Future<Either<SuccessResponse, FailureState>> deleteAllBooks();
 
+  /// Retrieve the first free and available bookInstance
+  Future<Either<BookInstance, FailureState>> fetchFirstFreeBookInstance(
+      {required String uid});
+
+  /// Update the specified bookInstance
+  Future<Either<void, FailureState>> updateBookInstance(
+      {required BookInstance bookInstance});
 }

@@ -13,7 +13,6 @@ class SearchResult with _$SearchResult {
     @Default('') String query,
     String? subtitle,
     String? imageUrl,
-    
   }) = _SearchResult;
 
   const SearchResult._();

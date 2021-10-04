@@ -6,10 +6,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_extension/riverpod_extension.dart';
 
 import '../../../domain/models/book/book.dart';
+import '../../../utils/hooks.dart';
 import '../../widgets/appBars/default_app_bar.dart';
 import '../../widgets/center_constraint.dart';
 import 'view_model/book_details/book_details_view_model.dart';
 import 'widgets/book_pdf_previewer.dart';
+import 'widgets/borrow_confirmation_dialog.dart';
 
 /// Book Detail Screen
 class BookDetailScreen extends HookWidget {
@@ -28,7 +30,7 @@ class BookDetailScreen extends HookWidget {
       Future.microtask(() async {
         await viewController.initialiseState(bookUid: bookUid ?? '');
       });
-    }, [state.book]);
+    }, [state]);
 
     return Scaffold(
       appBar: const DefaultAppBar(),
@@ -60,6 +62,8 @@ class _BuildBookSectionColumn extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final theme = useTheme();
+    final viewController = useProvider(bookDetailViewModelProvider.notifier);
+
     if (book != null) {
       return Column(
         children: [
@@ -103,24 +107,43 @@ class _BuildBookSectionColumn extends HookWidget {
           SizedBox(
             width: _maxWidth,
             height: 40,
-            child: ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.resolveWith(
-                  (_) => const Color(0xffffe082),
-                ),
-              ),
-              onPressed: book?.downloadUrl != null
-                  ? () => showDialog<void>(
-                        context: context,
-                        builder: (context) => BookPdfPreviewer(
-                            bookPdfUrl: book?.downloadUrl ?? ''),
-                      )
-                  : null,
-              child: Text(
-                'Borrow',
-                style: theme.textTheme.headline6,
-              ),
-            ),
+            child: !(book != null && book!.numberAvailable > 0)
+                ? Text(
+                    'Out of stock',
+                    style: theme.textTheme.caption,
+                    textAlign: TextAlign.center,
+                  )
+                : ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith(
+                        (_) => const Color(0xffffe082),
+                      ),
+                    ),
+                    onPressed: () async => showDialog<void>(
+                      context: context,
+                      builder: (context) => BorrowConfirmationDialog(
+                        book: book!,
+                        onConfirmTap: () async {
+                          await viewController.handleBorrowButton();
+                          useSnackBar(
+                            context: context,
+                            message: 'Book added successfully',
+                            color: const Color(0xFF66BB6A),
+                          );
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ),
+                    child: Text(
+                      'Borrow',
+                      style: theme.textTheme.headline6,
+                    ),
+                  ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Available Copies: ${book?.numberAvailable}',
+            style: theme.textTheme.caption,
           ),
           const SizedBox(height: 24),
           ConstrainedBox(
