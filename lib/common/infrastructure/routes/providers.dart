@@ -13,7 +13,7 @@ import '../../domain/repositories/search/search.dart';
 
 /// Provides [StreamProvider] of app state changes
 final appStateStreamProvider = StreamProvider.autoDispose<AppState>((ref) {
-  var appState = const AppState(isAuthenticated: true);
+  var appState = const AppState();
 
   final currentUser = ref.watch(currentUserStreamProvider).data?.value;
   if (currentUser != null) {

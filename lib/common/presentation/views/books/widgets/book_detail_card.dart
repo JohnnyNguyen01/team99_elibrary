@@ -8,6 +8,8 @@ class BookDetailCard extends HookWidget {
   const BookDetailCard({
     required final this.imageUrl,
     required final this.title,
+    final this.onBorrowButtonTap,
+    final this.onInfoButtonTap,
     final this.onCardTap,
   });
 
@@ -16,6 +18,12 @@ class BookDetailCard extends HookWidget {
 
   /// Card title
   final String title;
+
+  /// Borrow button callback
+  final VoidCallback? onBorrowButtonTap;
+
+  /// Info Button callback
+  final VoidCallback? onInfoButtonTap;
 
   /// Callback for when the card overlay is tapped
   final VoidCallback? onCardTap;
@@ -95,9 +103,18 @@ class BookDetailCard extends HookWidget {
             ],
           ),
           const SizedBox(height: 8),
-          ElevatedButton(
-            onPressed: () {},
-            child: const Text('Borrow'),
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: onBorrowButtonTap,
+                child: const Text('Borrow'),
+              ),
+              const SizedBox(width: 8),
+              ElevatedButton(
+                onPressed: onInfoButtonTap,
+                child: const Text('Info'),
+              )
+            ],
           ),
         ],
       ),

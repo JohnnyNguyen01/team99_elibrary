@@ -33,6 +33,7 @@ class DefaultAppBar extends HookWidget implements PreferredSize {
 
     final navigator = useProvider(navigationProvider.notifier);
     return AppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: theme.colorScheme.background,
       centerTitle: false,
       title: MouseRegionPointer(

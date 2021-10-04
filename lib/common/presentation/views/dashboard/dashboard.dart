@@ -13,18 +13,18 @@ class DashBoard extends HookWidget {
   const DashBoard();
 
   @override
-  Widget build(BuildContext context) {
-    final theme = useTheme();
-    final currentUser = useProvider(currentUserStreamProvider).data?.value;
-    return Scaffold(
-      appBar: const DefaultAppBar(),
-      body: SingleChildScrollView(
-        child: Row(
-          children: const [_UserDetailsColumn()],
+  Widget build(BuildContext context)
+      // final theme = useTheme();
+      // final currentUser = useProvider(currentUserStreamProvider).data?.value;
+      =>
+      Scaffold(
+        appBar: const DefaultAppBar(),
+        body: SingleChildScrollView(
+          child: Row(
+            children: const [_UserDetailsColumn()],
+          ),
         ),
-      ),
-    );
-  }
+      );
 }
 
 class _UserDetailsColumn extends HookWidget {
