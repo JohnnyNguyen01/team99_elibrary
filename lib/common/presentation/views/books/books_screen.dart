@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_extension/riverpod_extension.dart';
-import 'package:team99_elibrary/common/presentation/widgets/appBars/default_app_bar.dart';
-import 'package:team99_elibrary/common/presentation/widgets/search/search_bar.dart';
 
 import '../../../utils/constants.dart';
 import '../../../utils/hooks.dart';
-import '../../widgets/website_header.dart';
+import '../../widgets/appBars/default_app_bar.dart';
+import '../../widgets/search/search_bar.dart';
 import 'view_model/books_notifier.dart';
 import 'widgets/book_detail_card.dart';
 import 'widgets/book_pdf_previewer.dart';
