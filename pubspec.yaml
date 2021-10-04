@@ -27,6 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  algolia: ^1.0.1
   cloud_firestore: ^2.5.3
   cupertino_icons: ^1.0.2
   dartz: ^0.10.0
@@ -39,12 +40,14 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_hooks: ^0.17.0
+  flutter_html: ^2.1.4
   flutter_svg: ^0.22.0
   fluttertoast: ^8.0.8
   freezed_annotation: ^0.14.2
   google_fonts: ^2.1.0
   hooks_riverpod: ^0.14.0+4
   logger: ^1.0.0
+  material_floating_search_bar: ^0.3.4
   native_pdf_view: ^4.2.0
   riverpod_extension: ^1.2.2
   riverpod_navigation: ^0.2.1-prerelease

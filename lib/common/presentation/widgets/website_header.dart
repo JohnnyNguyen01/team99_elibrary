@@ -8,7 +8,7 @@ import '../../infrastructure/routes/routes.dart';
 import '../../utils/constants.dart';
 import '../../utils/hooks.dart';
 import 'mouse_region_pointer.dart';
-import 'search_bar.dart';
+import 'search/search_bar.dart';
 import 'user_avatar_menu.dart';
 
 final _mockRoutes = [
@@ -54,96 +54,109 @@ class WebsiteHeader extends HookWidget {
           screenSize.width,
           navigationBarHeight + libraryStatusBarHeight + searchContainerHeight,
         ),
-        child: Column(
+        child: Stack(
+          alignment: Alignment.center,
+          clipBehavior: Clip.none,
           children: [
-            // Navigation bar
-            Container(
-              width: screenSize.width,
-              height: navigationBarHeight,
-              color: theme.colorScheme.onSurface,
-              // TODO: Turn into HyperLinks or TabBar [Johnny]
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  for (final mockRoute in _mockRoutes)
-                    // TODO: Refactor into common widget [Johnny]
-                    MouseRegionPointer(
-                      onPressed: () => navigator.navigate(RoutePath.books),
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 24),
-                        child: Text(
-                          mockRoute,
-                          style: theme.textTheme.bodyText1
-                              ?.copyWith(color: theme.colorScheme.surface),
-                        ),
-                      ),
-                    )
-                ],
-              ),
-            ),
-            // Library Details Status
-            SizedBox(
-              height: libraryStatusBarHeight,
-              width: screenSize.width,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  SelectableText(
-                    'Opening Hours: Temporarily Closed',
-                    style: theme.textTheme.caption,
-                  ),
-                  Row(
+            Column(
+              children: [
+                // Navigation bar
+                Container(
+                  width: screenSize.width,
+                  height: navigationBarHeight,
+                  color: theme.colorScheme.onSurface,
+                  // TODO: Turn into HyperLinks or TabBar [Johnny]
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        width: 6,
-                        height: 6,
-                        margin: const EdgeInsets.only(right: 4),
-                        decoration: const BoxDecoration(
-                          // TODO: Add Success color scheme [Johnny]
-                          color: Colors.green,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      SelectableText(
-                        'Chat is online',
-                        style: theme.textTheme.bodyText2,
-                      ),
-                      const SizedBox(width: 24),
-                      SelectableText(
-                        'Next Event: ',
-                        style: theme.textTheme.bodyText2
-                            ?.copyWith(fontWeight: FontWeight.w600),
-                      ),
-                      const SelectableText(
-                          'How to build a website with Flutter')
+                      for (final mockRoute in _mockRoutes)
+                        // TODO: Refactor into common widget [Johnny]
+                        MouseRegionPointer(
+                          onPressed: () => navigator.navigate(RoutePath.books),
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 24),
+                            child: Text(
+                              mockRoute,
+                              style: theme.textTheme.bodyText1
+                                  ?.copyWith(color: theme.colorScheme.surface),
+                            ),
+                          ),
+                        )
                     ],
-                  )
-                ],
-              ),
-            ),
-            // Search Bar Container
-            SizedBox(
-              width: screenSize.width,
-              height: searchContainerHeight,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Image.asset(
-                    '${assetImagePath}background.jpg',
-                    width: screenSize.width,
-                    height: searchContainerHeight,
-                    fit: BoxFit.cover,
                   ),
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 768),
+                ),
+                // Library Details Status
+                SizedBox(
+                  height: libraryStatusBarHeight,
+                  width: screenSize.width,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SelectableText(
+                        'Opening Hours: Temporarily Closed',
+                        style: theme.textTheme.caption,
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            width: 6,
+                            height: 6,
+                            margin: const EdgeInsets.only(right: 4),
+                            decoration: const BoxDecoration(
+                              // TODO: Add Success color scheme [Johnny]
+                              color: Colors.green,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          SelectableText(
+                            'Chat is online',
+                            style: theme.textTheme.bodyText2,
+                          ),
+                          const SizedBox(width: 24),
+                          SelectableText(
+                            'Next Event: ',
+                            style: theme.textTheme.bodyText2
+                                ?.copyWith(fontWeight: FontWeight.w600),
+                          ),
+                          const SelectableText(
+                              'How to build a website with Flutter')
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+                // Search Bar Container
+                SizedBox(
+                  width: screenSize.width,
+                  height: searchContainerHeight,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Image.asset(
+                        '${assetImagePath}background.jpg',
+                        width: screenSize.width,
+                        height: searchContainerHeight,
+                        fit: BoxFit.cover,
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+            Positioned(
+                top: 172,
+                child: Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxWidth: 768,
+                      maxHeight: 560,
+                    ),
                     child: const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16),
                       child: SearchBar(),
                     ),
-                  )
-                ],
-              ),
-            )
+                  ),
+                ))
           ],
         ),
       ),

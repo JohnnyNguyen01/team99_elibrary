@@ -44,3 +44,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Api Keys constants file - usually use environment variables
+# but no time to set-up
+api_keys.dart
