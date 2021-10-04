@@ -7,7 +7,8 @@ import 'books_view_model.dart';
 
 /// The [BooksScreenNotifier] provider
 final booksViewModel =
-    StateNotifierProvider<BooksScreenNotifier, BooksViewModel>((ref) {
+    StateNotifierProvider.autoDispose<BooksScreenNotifier, BooksViewModel>(
+        (ref) {
   final booksRepo = ref.watch(booksRepositoryProvider);
   return BooksScreenNotifier(booksRepo: booksRepo);
 });
