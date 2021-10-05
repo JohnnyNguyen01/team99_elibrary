@@ -8,7 +8,7 @@ part of 'search_highlight.dart';
 
 _$_SearchHighlight _$_$_SearchHighlightFromJson(Map<String, dynamic> json) {
   return _$_SearchHighlight(
-    objectId: json['objectId'] as String? ?? '',
+    uid: json['uid'] as String? ?? '',
     authorName: json['authorName'] as String? ?? '',
     categories: (json['categories'] as List<dynamic>?)
             ?.map((e) => e as String)
@@ -21,7 +21,7 @@ _$_SearchHighlight _$_$_SearchHighlightFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_SearchHighlightToJson(_$_SearchHighlight instance) =>
     <String, dynamic>{
-      'objectId': instance.objectId,
+      'uid': instance.uid,
       'authorName': instance.authorName,
       'categories': instance.categories,
       'name': instance.name,

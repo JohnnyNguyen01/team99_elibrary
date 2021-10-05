@@ -21,13 +21,13 @@ class _$SearchHighlightTearOff {
   const _$SearchHighlightTearOff();
 
   _SearchHighlight call(
-      {String objectId = '',
+      {String uid = '',
       String authorName = '',
       List<String> categories = const <String>[],
       String name = '',
       String? imageUrl}) {
     return _SearchHighlight(
-      objectId: objectId,
+      uid: uid,
       authorName: authorName,
       categories: categories,
       name: name,
@@ -45,7 +45,7 @@ const $SearchHighlight = _$SearchHighlightTearOff();
 
 /// @nodoc
 mixin _$SearchHighlight {
-  String get objectId => throw _privateConstructorUsedError;
+  String get uid => throw _privateConstructorUsedError;
   String get authorName => throw _privateConstructorUsedError;
   List<String> get categories => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
@@ -63,7 +63,7 @@ abstract class $SearchHighlightCopyWith<$Res> {
           SearchHighlight value, $Res Function(SearchHighlight) then) =
       _$SearchHighlightCopyWithImpl<$Res>;
   $Res call(
-      {String objectId,
+      {String uid,
       String authorName,
       List<String> categories,
       String name,
@@ -81,16 +81,16 @@ class _$SearchHighlightCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? objectId = freezed,
+    Object? uid = freezed,
     Object? authorName = freezed,
     Object? categories = freezed,
     Object? name = freezed,
     Object? imageUrl = freezed,
   }) {
     return _then(_value.copyWith(
-      objectId: objectId == freezed
-          ? _value.objectId
-          : objectId // ignore: cast_nullable_to_non_nullable
+      uid: uid == freezed
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
               as String,
       authorName: authorName == freezed
           ? _value.authorName
@@ -120,7 +120,7 @@ abstract class _$SearchHighlightCopyWith<$Res>
       __$SearchHighlightCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String objectId,
+      {String uid,
       String authorName,
       List<String> categories,
       String name,
@@ -140,16 +140,16 @@ class __$SearchHighlightCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? objectId = freezed,
+    Object? uid = freezed,
     Object? authorName = freezed,
     Object? categories = freezed,
     Object? name = freezed,
     Object? imageUrl = freezed,
   }) {
     return _then(_SearchHighlight(
-      objectId: objectId == freezed
-          ? _value.objectId
-          : objectId // ignore: cast_nullable_to_non_nullable
+      uid: uid == freezed
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
               as String,
       authorName: authorName == freezed
           ? _value.authorName
@@ -175,7 +175,7 @@ class __$SearchHighlightCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_SearchHighlight extends _SearchHighlight {
   const _$_SearchHighlight(
-      {this.objectId = '',
+      {this.uid = '',
       this.authorName = '',
       this.categories = const <String>[],
       this.name = '',
@@ -187,7 +187,7 @@ class _$_SearchHighlight extends _SearchHighlight {
 
   @JsonKey(defaultValue: '')
   @override
-  final String objectId;
+  final String uid;
   @JsonKey(defaultValue: '')
   @override
   final String authorName;
@@ -202,16 +202,15 @@ class _$_SearchHighlight extends _SearchHighlight {
 
   @override
   String toString() {
-    return 'SearchHighlight(objectId: $objectId, authorName: $authorName, categories: $categories, name: $name, imageUrl: $imageUrl)';
+    return 'SearchHighlight(uid: $uid, authorName: $authorName, categories: $categories, name: $name, imageUrl: $imageUrl)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _SearchHighlight &&
-            (identical(other.objectId, objectId) ||
-                const DeepCollectionEquality()
-                    .equals(other.objectId, objectId)) &&
+            (identical(other.uid, uid) ||
+                const DeepCollectionEquality().equals(other.uid, uid)) &&
             (identical(other.authorName, authorName) ||
                 const DeepCollectionEquality()
                     .equals(other.authorName, authorName)) &&
@@ -228,7 +227,7 @@ class _$_SearchHighlight extends _SearchHighlight {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(objectId) ^
+      const DeepCollectionEquality().hash(uid) ^
       const DeepCollectionEquality().hash(authorName) ^
       const DeepCollectionEquality().hash(categories) ^
       const DeepCollectionEquality().hash(name) ^
@@ -247,7 +246,7 @@ class _$_SearchHighlight extends _SearchHighlight {
 
 abstract class _SearchHighlight extends SearchHighlight {
   const factory _SearchHighlight(
-      {String objectId,
+      {String uid,
       String authorName,
       List<String> categories,
       String name,
@@ -258,7 +257,7 @@ abstract class _SearchHighlight extends SearchHighlight {
       _$_SearchHighlight.fromJson;
 
   @override
-  String get objectId => throw _privateConstructorUsedError;
+  String get uid => throw _privateConstructorUsedError;
   @override
   String get authorName => throw _privateConstructorUsedError;
   @override

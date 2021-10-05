@@ -8,7 +8,7 @@ part 'search_highlight.g.dart';
 class SearchHighlight with _$SearchHighlight {
   /// [SearchHighlight] factory constructor
   const factory SearchHighlight({
-    @Default('') String objectId,
+    @Default('') String uid,
     @Default('') String authorName,
     @Default(<String>[]) List<String> categories,
     @Default('') String name,

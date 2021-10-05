@@ -38,6 +38,15 @@ final _authenticated = RouteDefinition(
         ),
     next: [
       RouteDefinition(
+        template: uriToTemplate(
+          RoutePath.bookDetails(),
+        ),
+        builder: (_, entry, __, ____) => MaterialPage<void>(
+          child:
+              BookDetailScreen(bookUid: entry.parameters[RouteParameters.uid]),
+        ),
+      ),
+      RouteDefinition(
           template: uriToTemplate(RoutePath.books),
           builder: (_, __, ___, ____) => const MaterialPage<void>(
                 child: BooksScreen(),

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
-import 'package:riverpod_extension/riverpod_extension.dart';
+import 'package:riverpod_navigation/riverpod_navigation.dart';
+import '../../../infrastructure/routes/routes.dart';
 
 import 'search_view_model.dart';
 import 'widgets/search_result_list_tile.dart';
@@ -16,7 +17,6 @@ class SearchBar extends HookWidget {
   Widget build(BuildContext context) {
     final state = useProvider(searchViewModelProvider);
     final viewController = useProvider(searchViewModelProvider.notifier);
-    final theme = useTheme();
 
     return FloatingSearchBar(
       hint: 'Search by title, author, ISBN & category',
@@ -59,7 +59,9 @@ class SearchBar extends HookWidget {
                 objectId: result.objectId,
                 imageUrl: result.imageUrl,
                 query: result.query,
-                onTap: () {},
+                onTap: () => context.read(navigationProvider.notifier).navigate(
+                      RoutePath.bookDetails(uid: result.objectId),
+                    ),
               );
             },
           ),

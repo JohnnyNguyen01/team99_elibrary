@@ -18,10 +18,18 @@ class _$DashboardViewStateTearOff {
 
   _DashboardViewState call(
       {bool isLoading = false,
+      List<String> currentlyBorrowedHeaders = const <String>[
+        ' ',
+        'Book Name',
+        'Date Borrowed',
+        'Due Date',
+        'Transaction ID'
+      ],
       List<CurrentlyBorrowed> currentlyBorrowedList =
           const <CurrentlyBorrowed>[]}) {
     return _DashboardViewState(
       isLoading: isLoading,
+      currentlyBorrowedHeaders: currentlyBorrowedHeaders,
       currentlyBorrowedList: currentlyBorrowedList,
     );
   }
@@ -33,6 +41,8 @@ const $DashboardViewState = _$DashboardViewStateTearOff();
 /// @nodoc
 mixin _$DashboardViewState {
   bool get isLoading => throw _privateConstructorUsedError;
+  List<String> get currentlyBorrowedHeaders =>
+      throw _privateConstructorUsedError;
   List<CurrentlyBorrowed> get currentlyBorrowedList =>
       throw _privateConstructorUsedError;
 
@@ -46,7 +56,10 @@ abstract class $DashboardViewStateCopyWith<$Res> {
   factory $DashboardViewStateCopyWith(
           DashboardViewState value, $Res Function(DashboardViewState) then) =
       _$DashboardViewStateCopyWithImpl<$Res>;
-  $Res call({bool isLoading, List<CurrentlyBorrowed> currentlyBorrowedList});
+  $Res call(
+      {bool isLoading,
+      List<String> currentlyBorrowedHeaders,
+      List<CurrentlyBorrowed> currentlyBorrowedList});
 }
 
 /// @nodoc
@@ -61,6 +74,7 @@ class _$DashboardViewStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? currentlyBorrowedHeaders = freezed,
     Object? currentlyBorrowedList = freezed,
   }) {
     return _then(_value.copyWith(
@@ -68,6 +82,10 @@ class _$DashboardViewStateCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      currentlyBorrowedHeaders: currentlyBorrowedHeaders == freezed
+          ? _value.currentlyBorrowedHeaders
+          : currentlyBorrowedHeaders // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       currentlyBorrowedList: currentlyBorrowedList == freezed
           ? _value.currentlyBorrowedList
           : currentlyBorrowedList // ignore: cast_nullable_to_non_nullable
@@ -83,7 +101,10 @@ abstract class _$DashboardViewStateCopyWith<$Res>
           _DashboardViewState value, $Res Function(_DashboardViewState) then) =
       __$DashboardViewStateCopyWithImpl<$Res>;
   @override
-  $Res call({bool isLoading, List<CurrentlyBorrowed> currentlyBorrowedList});
+  $Res call(
+      {bool isLoading,
+      List<String> currentlyBorrowedHeaders,
+      List<CurrentlyBorrowed> currentlyBorrowedList});
 }
 
 /// @nodoc
@@ -100,6 +121,7 @@ class __$DashboardViewStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? currentlyBorrowedHeaders = freezed,
     Object? currentlyBorrowedList = freezed,
   }) {
     return _then(_DashboardViewState(
@@ -107,6 +129,10 @@ class __$DashboardViewStateCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      currentlyBorrowedHeaders: currentlyBorrowedHeaders == freezed
+          ? _value.currentlyBorrowedHeaders
+          : currentlyBorrowedHeaders // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       currentlyBorrowedList: currentlyBorrowedList == freezed
           ? _value.currentlyBorrowedList
           : currentlyBorrowedList // ignore: cast_nullable_to_non_nullable
@@ -120,18 +146,34 @@ class __$DashboardViewStateCopyWithImpl<$Res>
 class _$_DashboardViewState implements _DashboardViewState {
   const _$_DashboardViewState(
       {this.isLoading = false,
+      this.currentlyBorrowedHeaders = const <String>[
+        ' ',
+        'Book Name',
+        'Date Borrowed',
+        'Due Date',
+        'Transaction ID'
+      ],
       this.currentlyBorrowedList = const <CurrentlyBorrowed>[]});
 
   @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
+  @JsonKey(defaultValue: const <String>[
+    ' ',
+    'Book Name',
+    'Date Borrowed',
+    'Due Date',
+    'Transaction ID'
+  ])
+  @override
+  final List<String> currentlyBorrowedHeaders;
   @JsonKey(defaultValue: const <CurrentlyBorrowed>[])
   @override
   final List<CurrentlyBorrowed> currentlyBorrowedList;
 
   @override
   String toString() {
-    return 'DashboardViewState(isLoading: $isLoading, currentlyBorrowedList: $currentlyBorrowedList)';
+    return 'DashboardViewState(isLoading: $isLoading, currentlyBorrowedHeaders: $currentlyBorrowedHeaders, currentlyBorrowedList: $currentlyBorrowedList)';
   }
 
   @override
@@ -141,6 +183,11 @@ class _$_DashboardViewState implements _DashboardViewState {
             (identical(other.isLoading, isLoading) ||
                 const DeepCollectionEquality()
                     .equals(other.isLoading, isLoading)) &&
+            (identical(
+                    other.currentlyBorrowedHeaders, currentlyBorrowedHeaders) ||
+                const DeepCollectionEquality().equals(
+                    other.currentlyBorrowedHeaders,
+                    currentlyBorrowedHeaders)) &&
             (identical(other.currentlyBorrowedList, currentlyBorrowedList) ||
                 const DeepCollectionEquality().equals(
                     other.currentlyBorrowedList, currentlyBorrowedList)));
@@ -150,6 +197,7 @@ class _$_DashboardViewState implements _DashboardViewState {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(isLoading) ^
+      const DeepCollectionEquality().hash(currentlyBorrowedHeaders) ^
       const DeepCollectionEquality().hash(currentlyBorrowedList);
 
   @JsonKey(ignore: true)
@@ -161,10 +209,14 @@ class _$_DashboardViewState implements _DashboardViewState {
 abstract class _DashboardViewState implements DashboardViewState {
   const factory _DashboardViewState(
       {bool isLoading,
+      List<String> currentlyBorrowedHeaders,
       List<CurrentlyBorrowed> currentlyBorrowedList}) = _$_DashboardViewState;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
+  @override
+  List<String> get currentlyBorrowedHeaders =>
+      throw _privateConstructorUsedError;
   @override
   List<CurrentlyBorrowed> get currentlyBorrowedList =>
       throw _privateConstructorUsedError;

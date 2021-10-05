@@ -38,7 +38,7 @@ class SearchViewModel extends StateNotifier<SearchState> {
               SearchHighlight.fromJson(querySnapshot.queryData);
           final searchResult = SearchResult(
               query: query,
-              objectId: highlightData.objectId,
+              objectId: highlightData.uid,
               title: highlightData.name,
               subtitle: highlightData.authorName,
               imageUrl: highlightData.imageUrl);

@@ -7,6 +7,7 @@ import '../../../../authentication/providers.dart';
 import '../../../utils/hooks.dart';
 import '../../widgets/appBars/default_app_bar.dart';
 import 'dashboard_view_model.dart';
+import 'widgets.dart/empty_list_placeholder.dart';
 
 /// User Dashboard page
 class DashBoard extends HookWidget {
@@ -35,7 +36,10 @@ class DashBoard extends HookWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            /// User Column
             const _UserDetailsColumn(),
+
+            /// Content
             if (viewState.isLoading)
               Expanded(
                 child: SizedBox(
@@ -45,14 +49,30 @@ class DashBoard extends HookWidget {
                   ),
                 ),
               )
+
+            /// Currently borrowed tab
             else
-              const Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
-                child: _BuildDashboardContent(),
-              )
+              viewState.currentlyBorrowedList.isEmpty
+                  ? Expanded(
+                      child: SizedBox(
+                        height: screenSize.height,
+                        width: screenSize.width,
+                        child: const Center(
+                          child: EmptyListPlaceHolder(
+                            message: 'No books borrowed yet',
+                            width: 250,
+                            height: 250,
+                          ),
+                        ),
+                      ),
+                    )
+                  : const Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      child: _BuildDashboardContent(),
+                    )
           ],
         ),
       ),
@@ -94,15 +114,15 @@ class _UserDetailsColumn extends HookWidget {
               const SizedBox(height: 16),
               ListTile(
                 title: const Text('Currently Borrowed'),
-                onTap: (){},
+                onTap: () {},
               ),
-               ListTile(
+              ListTile(
                 title: const Text('Borrow History'),
-                onTap: (){},
+                onTap: () {},
               ),
-               ListTile(
+              ListTile(
                 title: const Text('Fines'),
-                onTap: (){},
+                onTap: () {},
               ),
             ],
           ),
@@ -138,42 +158,15 @@ class _BuildDashboardContent extends HookWidget {
             DataTable(
               dividerThickness: 2,
               columns: [
-                const DataColumn(
-                  label: SelectableText(
-                    ' ',
-                  ),
-                  tooltip: 'Book Name',
-                ),
-                DataColumn(
-                  label: SelectableText(
-                    'Book name',
-                    style: theme.textTheme.bodyText1
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  tooltip: 'Book Name',
-                ),
-                DataColumn(
+                for (final headerName in viewState.currentlyBorrowedHeaders)
+                  DataColumn(
                     label: SelectableText(
-                      'Date Borrowed',
-                      style: theme.textTheme.bodyText1
+                      headerName,
+                      style: theme.textTheme.bodyText2
                           ?.copyWith(fontWeight: FontWeight.bold),
                     ),
-                    tooltip: 'Date Borrowed'),
-                DataColumn(
-                  label: SelectableText(
-                    'Date Due',
-                    style: theme.textTheme.bodyText1
-                        ?.copyWith(fontWeight: FontWeight.bold),
+                    tooltip: headerName,
                   ),
-                  tooltip: 'Date Due',
-                ),
-                DataColumn(
-                    label: SelectableText(
-                      'Transaction Id',
-                      style: theme.textTheme.bodyText1
-                          ?.copyWith(fontWeight: FontWeight.bold),
-                    ),
-                    tooltip: 'Transaction Id'),
               ],
               rows: [
                 for (final instance in viewState.currentlyBorrowedList)

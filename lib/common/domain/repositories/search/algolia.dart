@@ -34,7 +34,11 @@ class AlgoliaSearchRepository implements SearchRepository {
       }
       return Left(queryResultList);
     } on AlgoliaError catch (e) {
-      return Right(FailureState(e.error.toString()));
+      return Right(
+        FailureState(
+          e.error.toString(),
+        ),
+      );
     }
   }
 }
