@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:riverpod_extension/riverpod_extension.dart';
 import 'package:team99_elibrary/common/presentation/views/faq/faq_screen.dart';
+import 'package:team99_elibrary/common/presentation/views/visit_us.dart/visit_us.dart';
 import '../../utils/constants.dart';
 import '../widgets/appBars/default_app_bar.dart';
 import '../widgets/carousel.dart';
@@ -40,7 +41,7 @@ class HomeScreen extends HookWidget {
           final innerIsScrolled,
         ) =>
             const [WebsiteHeader()],
-        body: const FaqScreen(),
+        body: const VisitUs(),
         /*SingleChildScrollView(
           child: CenterConstraint(
             children: [
