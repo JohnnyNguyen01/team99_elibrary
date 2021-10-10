@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:riverpod_extension/riverpod_extension.dart';
-
+import 'package:team99_elibrary/common/presentation/views/faq/faq_screen.dart';
 import '../../utils/constants.dart';
 import '../widgets/appBars/default_app_bar.dart';
 import '../widgets/carousel.dart';
@@ -40,7 +40,8 @@ class HomeScreen extends HookWidget {
           final innerIsScrolled,
         ) =>
             const [WebsiteHeader()],
-        body: SingleChildScrollView(
+        body: const FaqScreen(),
+        /*SingleChildScrollView(
           child: CenterConstraint(
             children: [
               // Alert placeholder
@@ -66,11 +67,11 @@ class HomeScreen extends HookWidget {
                       children: const [
                         InfoCard(
                             overlineHeading: 'News',
-                            heading: 'Coronavirus libary update',
+                            heading: 'Coronavirus library update',
                             footer: null),
                         InfoCard(
                             overlineHeading: 'News',
-                            heading: 'Coronavirus libary update',
+                            heading: 'Coronavirus library update',
                             footer: null),
                       ],
                     )
@@ -79,7 +80,7 @@ class HomeScreen extends HookWidget {
               )
             ],
           ),
-        ),
+        ), */
       ),
     );
   }

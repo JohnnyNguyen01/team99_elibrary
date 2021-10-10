@@ -15,7 +15,9 @@ import '../../domain/repositories/user/user_repository_facade.dart';
 
 /// Provides [StreamProvider] of app state changes
 final appStateStreamProvider = StreamProvider.autoDispose<AppState>((ref) {
-  var appState = const AppState();
+  var appState = const AppState(
+    isAuthenticated: true,
+  );
 
   final currentUser = ref.watch(currentUserStreamProvider).data?.value;
   if (currentUser != null) {

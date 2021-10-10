@@ -231,7 +231,7 @@ class _CarouselMessageCard extends HookWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SelectableText(
-              'Chat to a today',
+              'Chat to a librarian today',
               style: theme.textTheme.headline5
                   ?.copyWith(fontWeight: FontWeight.w600),
             ),
