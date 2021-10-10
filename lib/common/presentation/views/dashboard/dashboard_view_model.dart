@@ -5,6 +5,7 @@ import '../../../domain/repositories/books/books_facade.dart';
 import '../../../domain/repositories/user/user_repository_facade.dart';
 import '../../../infrastructure/routes/providers.dart';
 import 'model/currently_borrowed/currently_borrowed.dart';
+import 'model/dashboard_tabs.dart';
 import 'model/dashboard_view_state.dart';
 
 /// The [Provider] for the [DashboardViewModel]
@@ -38,6 +39,10 @@ class DashboardViewModel extends StateNotifier<DashboardViewState> {
   final IBooksRepository _booksRepo;
   final IUserRepository _userRepo;
   final Reader _read;
+
+  /// Changes the currently selected tab
+  void setCurrentTab({required final DashboardTabs tab}) =>
+      state = state.copyWith(currentTab: tab);
 
   /// Fetch and set the currently borrowed list
   Future<void> fetchCurrentBorrowedList() async {

@@ -7,6 +7,7 @@ import '../../../../authentication/providers.dart';
 import '../../../utils/hooks.dart';
 import '../../widgets/appBars/default_app_bar.dart';
 import 'dashboard_view_model.dart';
+import 'model/dashboard_tabs.dart';
 import 'widgets.dart/empty_list_placeholder.dart';
 
 /// User Dashboard page
@@ -51,7 +52,7 @@ class DashBoard extends HookWidget {
               )
 
             /// Currently borrowed tab
-            else
+            else if (viewState.currentTab == DashboardTabs.currentlyBorrowing)
               viewState.currentlyBorrowedList.isEmpty
                   ? Expanded(
                       child: SizedBox(
@@ -71,8 +72,12 @@ class DashBoard extends HookWidget {
                         horizontal: 16,
                         vertical: 8,
                       ),
-                      child: _BuildDashboardContent(),
+                      child: _CurrentlyBorrowedTab(),
                     )
+            else if (viewState.currentTab == DashboardTabs.borrowHistory)
+              const _BorrowHistoryTab()
+            else if (viewState.currentTab == DashboardTabs.fines)
+              const _FinesTab()
           ],
         ),
       ),
@@ -86,8 +91,10 @@ class _UserDetailsColumn extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final currentUser = useProvider(currentUserStreamProvider).data?.value;
+    final viewController = useProvider(dashboardViewModelProvider.notifier);
     final screenSize = useScreenSize();
     final theme = useTheme();
+
     return Container(
       height: screenSize.height,
       constraints: const BoxConstraints(maxWidth: 240),
@@ -112,18 +119,11 @@ class _UserDetailsColumn extends HookWidget {
               const SizedBox(height: 4),
               Text(currentUser?.email ?? ''),
               const SizedBox(height: 16),
-              ListTile(
-                title: const Text('Currently Borrowed'),
-                onTap: () {},
-              ),
-              ListTile(
-                title: const Text('Borrow History'),
-                onTap: () {},
-              ),
-              ListTile(
-                title: const Text('Fines'),
-                onTap: () {},
-              ),
+              for (final tab in DashboardTabs.values)
+                ListTile(
+                  title: Text(tab.title),
+                  onTap: () => viewController.setCurrentTab(tab: tab),
+                ),
             ],
           ),
         ),
@@ -132,8 +132,8 @@ class _UserDetailsColumn extends HookWidget {
   }
 }
 
-class _BuildDashboardContent extends HookWidget {
-  const _BuildDashboardContent({Key? key}) : super(key: key);
+class _CurrentlyBorrowedTab extends HookWidget {
+  const _CurrentlyBorrowedTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -170,29 +170,88 @@ class _BuildDashboardContent extends HookWidget {
               ],
               rows: [
                 for (final instance in viewState.currentlyBorrowedList)
-                  DataRow(cells: [
-                    DataCell(Image.network(
-                      instance.book?.imageUrl ?? '',
-                      fit: BoxFit.cover,
-                      width: 40,
-                      height: 40,
-                    )),
-                    DataCell(
-                      SelectableText(instance.book?.name ?? ''),
-                    ),
-                    const DataCell(
-                      SelectableText('05/10/2021'),
-                    ),
-                    const DataCell(
-                      SelectableText('29/10/21'),
-                    ),
-                    DataCell(
-                      SelectableText(instance.currentlyBorrowedBook?.uid ?? ''),
-                    )
-                  ])
+                  DataRow(
+                    cells: [
+                      DataCell(Image.network(
+                        instance.book?.imageUrl ?? '',
+                        fit: BoxFit.cover,
+                        width: 40,
+                        height: 40,
+                      )),
+                      DataCell(
+                        SelectableText(instance.book?.name ?? ''),
+                      ),
+                      DataCell(
+                        SelectableText(
+                          instance.currentlyBorrowedBook?.borrowedAt
+                                  .toString() ??
+                              '',
+                        ),
+                      ),
+                      DataCell(
+                        SelectableText(instance.currentlyBorrowedBook?.returnBy
+                                .toString() ??
+                            ''),
+                      ),
+                      DataCell(
+                        SelectableText(
+                            instance.currentlyBorrowedBook?.uid ?? ''),
+                      )
+                    ],
+                  )
               ],
             )
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _BorrowHistoryTab extends HookWidget {
+  const _BorrowHistoryTab();
+
+  @override
+  Widget build(final BuildContext context) {
+    final viewState = useProvider(dashboardViewModelProvider);
+
+    return const Expanded(
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 8,
+        ),
+        child: Card(
+          elevation: 4,
+          child: Padding(
+            padding: EdgeInsets.all(12),
+            child: Text('Borrow History Tab'),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _FinesTab extends HookWidget {
+  const _FinesTab();
+
+  @override
+  Widget build(final BuildContext context) {
+    final viewState = useProvider(dashboardViewModelProvider);
+
+    return const Expanded(
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 8,
+        ),
+        child: Card(
+          elevation: 4,
+          child: Padding(
+            padding: EdgeInsets.all(12),
+            child: Text('Fines Tab'),
+          ),
         ),
       ),
     );

@@ -12,6 +12,10 @@ _$_CurrentlyBorrowedBook _$_$_CurrentlyBorrowedBookFromJson(
     uid: json['uid'] as String?,
     bookUid: json['bookUid'] as String?,
     isOverdue: json['isOverdue'] as bool?,
+    borrowedAt:
+        const TimestampConverter().fromJson(json['borrowedAt'] as Timestamp?),
+    returnBy:
+        const TimestampConverter().fromJson(json['returnBy'] as Timestamp?),
   );
 }
 
@@ -21,4 +25,6 @@ Map<String, dynamic> _$_$_CurrentlyBorrowedBookToJson(
       'uid': instance.uid,
       'bookUid': instance.bookUid,
       'isOverdue': instance.isOverdue,
+      'borrowedAt': const TimestampConverter().toJson(instance.borrowedAt),
+      'returnBy': const TimestampConverter().toJson(instance.returnBy),
     };

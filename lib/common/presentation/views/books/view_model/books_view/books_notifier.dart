@@ -91,12 +91,15 @@ class BooksScreenNotifier extends StateNotifier<BooksViewModel> {
             // TODO: Properly test as stream can be unstable with reader[Johnny]
             final user = _read(currentUserStreamProvider).data?.value;
             if (user != null) {
+              final currentDate = DateTime.now();
+              final returnDate = currentDate.add(const Duration(days: 14));
+
               final borrowedInstance = CurrentlyBorrowedBook(
                 uid: const Uuid().v4(),
                 bookUid: bookInstance.bookUid,
                 isOverdue: false,
-                // borrowedAt: DateTime.now(),
-                // returnBy: DateTime(2021, 10, 29),
+                borrowedAt: currentDate,
+                returnBy: returnDate,
               );
               await _userRepo.addNewCurrentlyBorrowedEntry(
                   uid: user.uid ?? '',

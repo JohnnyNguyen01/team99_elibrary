@@ -26,11 +26,13 @@ class _$DashboardViewStateTearOff {
         'Transaction ID'
       ],
       List<CurrentlyBorrowed> currentlyBorrowedList =
-          const <CurrentlyBorrowed>[]}) {
+          const <CurrentlyBorrowed>[],
+      DashboardTabs currentTab = DashboardTabs.currentlyBorrowing}) {
     return _DashboardViewState(
       isLoading: isLoading,
       currentlyBorrowedHeaders: currentlyBorrowedHeaders,
       currentlyBorrowedList: currentlyBorrowedList,
+      currentTab: currentTab,
     );
   }
 }
@@ -45,6 +47,7 @@ mixin _$DashboardViewState {
       throw _privateConstructorUsedError;
   List<CurrentlyBorrowed> get currentlyBorrowedList =>
       throw _privateConstructorUsedError;
+  DashboardTabs get currentTab => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DashboardViewStateCopyWith<DashboardViewState> get copyWith =>
@@ -59,7 +62,8 @@ abstract class $DashboardViewStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       List<String> currentlyBorrowedHeaders,
-      List<CurrentlyBorrowed> currentlyBorrowedList});
+      List<CurrentlyBorrowed> currentlyBorrowedList,
+      DashboardTabs currentTab});
 }
 
 /// @nodoc
@@ -76,6 +80,7 @@ class _$DashboardViewStateCopyWithImpl<$Res>
     Object? isLoading = freezed,
     Object? currentlyBorrowedHeaders = freezed,
     Object? currentlyBorrowedList = freezed,
+    Object? currentTab = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
@@ -90,6 +95,10 @@ class _$DashboardViewStateCopyWithImpl<$Res>
           ? _value.currentlyBorrowedList
           : currentlyBorrowedList // ignore: cast_nullable_to_non_nullable
               as List<CurrentlyBorrowed>,
+      currentTab: currentTab == freezed
+          ? _value.currentTab
+          : currentTab // ignore: cast_nullable_to_non_nullable
+              as DashboardTabs,
     ));
   }
 }
@@ -104,7 +113,8 @@ abstract class _$DashboardViewStateCopyWith<$Res>
   $Res call(
       {bool isLoading,
       List<String> currentlyBorrowedHeaders,
-      List<CurrentlyBorrowed> currentlyBorrowedList});
+      List<CurrentlyBorrowed> currentlyBorrowedList,
+      DashboardTabs currentTab});
 }
 
 /// @nodoc
@@ -123,6 +133,7 @@ class __$DashboardViewStateCopyWithImpl<$Res>
     Object? isLoading = freezed,
     Object? currentlyBorrowedHeaders = freezed,
     Object? currentlyBorrowedList = freezed,
+    Object? currentTab = freezed,
   }) {
     return _then(_DashboardViewState(
       isLoading: isLoading == freezed
@@ -137,6 +148,10 @@ class __$DashboardViewStateCopyWithImpl<$Res>
           ? _value.currentlyBorrowedList
           : currentlyBorrowedList // ignore: cast_nullable_to_non_nullable
               as List<CurrentlyBorrowed>,
+      currentTab: currentTab == freezed
+          ? _value.currentTab
+          : currentTab // ignore: cast_nullable_to_non_nullable
+              as DashboardTabs,
     ));
   }
 }
@@ -153,7 +168,8 @@ class _$_DashboardViewState implements _DashboardViewState {
         'Due Date',
         'Transaction ID'
       ],
-      this.currentlyBorrowedList = const <CurrentlyBorrowed>[]});
+      this.currentlyBorrowedList = const <CurrentlyBorrowed>[],
+      this.currentTab = DashboardTabs.currentlyBorrowing});
 
   @JsonKey(defaultValue: false)
   @override
@@ -170,10 +186,13 @@ class _$_DashboardViewState implements _DashboardViewState {
   @JsonKey(defaultValue: const <CurrentlyBorrowed>[])
   @override
   final List<CurrentlyBorrowed> currentlyBorrowedList;
+  @JsonKey(defaultValue: DashboardTabs.currentlyBorrowing)
+  @override
+  final DashboardTabs currentTab;
 
   @override
   String toString() {
-    return 'DashboardViewState(isLoading: $isLoading, currentlyBorrowedHeaders: $currentlyBorrowedHeaders, currentlyBorrowedList: $currentlyBorrowedList)';
+    return 'DashboardViewState(isLoading: $isLoading, currentlyBorrowedHeaders: $currentlyBorrowedHeaders, currentlyBorrowedList: $currentlyBorrowedList, currentTab: $currentTab)';
   }
 
   @override
@@ -190,7 +209,10 @@ class _$_DashboardViewState implements _DashboardViewState {
                     currentlyBorrowedHeaders)) &&
             (identical(other.currentlyBorrowedList, currentlyBorrowedList) ||
                 const DeepCollectionEquality().equals(
-                    other.currentlyBorrowedList, currentlyBorrowedList)));
+                    other.currentlyBorrowedList, currentlyBorrowedList)) &&
+            (identical(other.currentTab, currentTab) ||
+                const DeepCollectionEquality()
+                    .equals(other.currentTab, currentTab)));
   }
 
   @override
@@ -198,7 +220,8 @@ class _$_DashboardViewState implements _DashboardViewState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(isLoading) ^
       const DeepCollectionEquality().hash(currentlyBorrowedHeaders) ^
-      const DeepCollectionEquality().hash(currentlyBorrowedList);
+      const DeepCollectionEquality().hash(currentlyBorrowedList) ^
+      const DeepCollectionEquality().hash(currentTab);
 
   @JsonKey(ignore: true)
   @override
@@ -210,7 +233,8 @@ abstract class _DashboardViewState implements DashboardViewState {
   const factory _DashboardViewState(
       {bool isLoading,
       List<String> currentlyBorrowedHeaders,
-      List<CurrentlyBorrowed> currentlyBorrowedList}) = _$_DashboardViewState;
+      List<CurrentlyBorrowed> currentlyBorrowedList,
+      DashboardTabs currentTab}) = _$_DashboardViewState;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
@@ -220,6 +244,8 @@ abstract class _DashboardViewState implements DashboardViewState {
   @override
   List<CurrentlyBorrowed> get currentlyBorrowedList =>
       throw _privateConstructorUsedError;
+  @override
+  DashboardTabs get currentTab => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DashboardViewStateCopyWith<_DashboardViewState> get copyWith =>

@@ -21,11 +21,18 @@ CurrentlyBorrowedBook _$CurrentlyBorrowedBookFromJson(
 class _$CurrentlyBorrowedBookTearOff {
   const _$CurrentlyBorrowedBookTearOff();
 
-  _CurrentlyBorrowedBook call({String? uid, String? bookUid, bool? isOverdue}) {
+  _CurrentlyBorrowedBook call(
+      {String? uid,
+      String? bookUid,
+      bool? isOverdue,
+      @TimestampConverter() DateTime? borrowedAt,
+      @TimestampConverter() DateTime? returnBy}) {
     return _CurrentlyBorrowedBook(
       uid: uid,
       bookUid: bookUid,
       isOverdue: isOverdue,
+      borrowedAt: borrowedAt,
+      returnBy: returnBy,
     );
   }
 
@@ -42,6 +49,10 @@ mixin _$CurrentlyBorrowedBook {
   String? get uid => throw _privateConstructorUsedError;
   String? get bookUid => throw _privateConstructorUsedError;
   bool? get isOverdue => throw _privateConstructorUsedError;
+  @TimestampConverter()
+  DateTime? get borrowedAt => throw _privateConstructorUsedError;
+  @TimestampConverter()
+  DateTime? get returnBy => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,7 +65,12 @@ abstract class $CurrentlyBorrowedBookCopyWith<$Res> {
   factory $CurrentlyBorrowedBookCopyWith(CurrentlyBorrowedBook value,
           $Res Function(CurrentlyBorrowedBook) then) =
       _$CurrentlyBorrowedBookCopyWithImpl<$Res>;
-  $Res call({String? uid, String? bookUid, bool? isOverdue});
+  $Res call(
+      {String? uid,
+      String? bookUid,
+      bool? isOverdue,
+      @TimestampConverter() DateTime? borrowedAt,
+      @TimestampConverter() DateTime? returnBy});
 }
 
 /// @nodoc
@@ -71,6 +87,8 @@ class _$CurrentlyBorrowedBookCopyWithImpl<$Res>
     Object? uid = freezed,
     Object? bookUid = freezed,
     Object? isOverdue = freezed,
+    Object? borrowedAt = freezed,
+    Object? returnBy = freezed,
   }) {
     return _then(_value.copyWith(
       uid: uid == freezed
@@ -85,6 +103,14 @@ class _$CurrentlyBorrowedBookCopyWithImpl<$Res>
           ? _value.isOverdue
           : isOverdue // ignore: cast_nullable_to_non_nullable
               as bool?,
+      borrowedAt: borrowedAt == freezed
+          ? _value.borrowedAt
+          : borrowedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      returnBy: returnBy == freezed
+          ? _value.returnBy
+          : returnBy // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -96,7 +122,12 @@ abstract class _$CurrentlyBorrowedBookCopyWith<$Res>
           $Res Function(_CurrentlyBorrowedBook) then) =
       __$CurrentlyBorrowedBookCopyWithImpl<$Res>;
   @override
-  $Res call({String? uid, String? bookUid, bool? isOverdue});
+  $Res call(
+      {String? uid,
+      String? bookUid,
+      bool? isOverdue,
+      @TimestampConverter() DateTime? borrowedAt,
+      @TimestampConverter() DateTime? returnBy});
 }
 
 /// @nodoc
@@ -115,6 +146,8 @@ class __$CurrentlyBorrowedBookCopyWithImpl<$Res>
     Object? uid = freezed,
     Object? bookUid = freezed,
     Object? isOverdue = freezed,
+    Object? borrowedAt = freezed,
+    Object? returnBy = freezed,
   }) {
     return _then(_CurrentlyBorrowedBook(
       uid: uid == freezed
@@ -129,6 +162,14 @@ class __$CurrentlyBorrowedBookCopyWithImpl<$Res>
           ? _value.isOverdue
           : isOverdue // ignore: cast_nullable_to_non_nullable
               as bool?,
+      borrowedAt: borrowedAt == freezed
+          ? _value.borrowedAt
+          : borrowedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      returnBy: returnBy == freezed
+          ? _value.returnBy
+          : returnBy // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -136,7 +177,12 @@ class __$CurrentlyBorrowedBookCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_CurrentlyBorrowedBook extends _CurrentlyBorrowedBook {
-  const _$_CurrentlyBorrowedBook({this.uid, this.bookUid, this.isOverdue})
+  const _$_CurrentlyBorrowedBook(
+      {this.uid,
+      this.bookUid,
+      this.isOverdue,
+      @TimestampConverter() this.borrowedAt,
+      @TimestampConverter() this.returnBy})
       : super._();
 
   factory _$_CurrentlyBorrowedBook.fromJson(Map<String, dynamic> json) =>
@@ -148,10 +194,16 @@ class _$_CurrentlyBorrowedBook extends _CurrentlyBorrowedBook {
   final String? bookUid;
   @override
   final bool? isOverdue;
+  @override
+  @TimestampConverter()
+  final DateTime? borrowedAt;
+  @override
+  @TimestampConverter()
+  final DateTime? returnBy;
 
   @override
   String toString() {
-    return 'CurrentlyBorrowedBook(uid: $uid, bookUid: $bookUid, isOverdue: $isOverdue)';
+    return 'CurrentlyBorrowedBook(uid: $uid, bookUid: $bookUid, isOverdue: $isOverdue, borrowedAt: $borrowedAt, returnBy: $returnBy)';
   }
 
   @override
@@ -165,7 +217,13 @@ class _$_CurrentlyBorrowedBook extends _CurrentlyBorrowedBook {
                     .equals(other.bookUid, bookUid)) &&
             (identical(other.isOverdue, isOverdue) ||
                 const DeepCollectionEquality()
-                    .equals(other.isOverdue, isOverdue)));
+                    .equals(other.isOverdue, isOverdue)) &&
+            (identical(other.borrowedAt, borrowedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.borrowedAt, borrowedAt)) &&
+            (identical(other.returnBy, returnBy) ||
+                const DeepCollectionEquality()
+                    .equals(other.returnBy, returnBy)));
   }
 
   @override
@@ -173,7 +231,9 @@ class _$_CurrentlyBorrowedBook extends _CurrentlyBorrowedBook {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(uid) ^
       const DeepCollectionEquality().hash(bookUid) ^
-      const DeepCollectionEquality().hash(isOverdue);
+      const DeepCollectionEquality().hash(isOverdue) ^
+      const DeepCollectionEquality().hash(borrowedAt) ^
+      const DeepCollectionEquality().hash(returnBy);
 
   @JsonKey(ignore: true)
   @override
@@ -191,7 +251,9 @@ abstract class _CurrentlyBorrowedBook extends CurrentlyBorrowedBook {
   const factory _CurrentlyBorrowedBook(
       {String? uid,
       String? bookUid,
-      bool? isOverdue}) = _$_CurrentlyBorrowedBook;
+      bool? isOverdue,
+      @TimestampConverter() DateTime? borrowedAt,
+      @TimestampConverter() DateTime? returnBy}) = _$_CurrentlyBorrowedBook;
   const _CurrentlyBorrowedBook._() : super._();
 
   factory _CurrentlyBorrowedBook.fromJson(Map<String, dynamic> json) =
@@ -203,6 +265,12 @@ abstract class _CurrentlyBorrowedBook extends CurrentlyBorrowedBook {
   String? get bookUid => throw _privateConstructorUsedError;
   @override
   bool? get isOverdue => throw _privateConstructorUsedError;
+  @override
+  @TimestampConverter()
+  DateTime? get borrowedAt => throw _privateConstructorUsedError;
+  @override
+  @TimestampConverter()
+  DateTime? get returnBy => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CurrentlyBorrowedBookCopyWith<_CurrentlyBorrowedBook> get copyWith =>
