@@ -102,7 +102,7 @@ class BooksScreenNotifier extends StateNotifier<BooksViewModel> {
                 returnBy: returnDate,
               );
               await _userRepo.addNewCurrentlyBorrowedEntry(
-                  uid: user.uid ?? '',
+                  uid: user.uid,
                   currentlyBorrowedInstance: borrowedInstance);
               // Adds extra code, but reduces backend read by one
               final currentBookList = state.books

@@ -8,12 +8,12 @@ part of 'user.dart';
 
 _$_User _$_$_UserFromJson(Map<String, dynamic> json) {
   return _$_User(
-    uid: json['uid'] as String?,
-    firstName: json['firstName'] as String?,
-    lastName: json['lastName'] as String?,
-    email: json['email'] as String?,
-    isAdmin: json['isAdmin'] as bool?,
-    imageUrl: json['imageUrl'] as String?,
+    uid: json['uid'] as String? ?? '',
+    firstName: json['firstName'] as String? ?? '',
+    lastName: json['lastName'] as String? ?? '',
+    email: json['email'] as String? ?? '',
+    isAdmin: json['isAdmin'] as bool? ?? false,
+    imageUrl: json['imageUrl'] as String? ?? '',
   );
 }
 

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../../../utils/firestore.dart';
 import '../../models/currently_borrowed_book/currently_borrowed_book.dart';
 
@@ -11,10 +12,14 @@ import 'user_repository_facade.dart';
 /// Holds functions related to the User instances and collections.
 class UserRepository implements IUserRepository {
   /// [UserRepository] constructor
-  const UserRepository({required final FirebaseFirestore firestore})
-      : _firestore = firestore;
+  const UserRepository({
+    required final FirebaseFirestore firestore,
+    required final FirebaseAuth auth,
+  })  : _firestore = firestore,
+        _auth = auth;
 
   final FirebaseFirestore _firestore;
+  final FirebaseAuth _auth;
 
   @override
   Future<Either<void, FailureState>> addNewCurrentlyBorrowedEntry({
@@ -50,6 +55,16 @@ class UserRepository implements IUserRepository {
       }
       return Left(instanceList);
     } on FirebaseException catch (e) {
+      return right(FailureState(e.message));
+    }
+  }
+
+  @override
+  Future<Either<void, FailureState>> signOutCurrentUser() async {
+    try {
+      await _auth.signOut();
+      return left(null);
+    } on FirebaseAuthException catch (e) {
       return right(FailureState(e.message));
     }
   }

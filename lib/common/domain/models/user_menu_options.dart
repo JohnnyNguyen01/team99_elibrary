@@ -1,5 +1,8 @@
 /// Account Menu enum
 enum AccountMenuOptions {
+  /// admin
+  admin,
+
   /// dashboard
   dashboard,
 
@@ -16,6 +19,8 @@ extension AccountMenuOptionsExtension on AccountMenuOptions {
         return 'Dashboard';
       case AccountMenuOptions.signOut:
         return 'Sign Out';
+      case AccountMenuOptions.admin:
+        return 'admin';
     }
   }
 }

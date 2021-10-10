@@ -73,7 +73,6 @@ class BookDetailsViewModel extends StateNotifier<BookDetailsScreenViewState> {
             // TODO: Properly test as stream can be unstable with reader[Johnny]
             final user = _read(currentUserStreamProvider).data?.value;
             if (user != null) {
-
               final currentDate = DateTime.now();
               final dueDate = currentDate.add(const Duration(days: 14));
 
@@ -85,8 +84,7 @@ class BookDetailsViewModel extends StateNotifier<BookDetailsScreenViewState> {
                 returnBy: dueDate,
               );
               await _userRepo.addNewCurrentlyBorrowedEntry(
-                  uid: user.uid ?? '',
-                  currentlyBorrowedInstance: borrowedInstance);
+                  uid: user.uid, currentlyBorrowedInstance: borrowedInstance);
               final originalNumberAvailable = state.book?.numberAvailable;
               if (originalNumberAvailable != null) {
                 state = state.copyWith(

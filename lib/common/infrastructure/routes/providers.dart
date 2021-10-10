@@ -1,6 +1,7 @@
 import 'package:algolia/algolia.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../api_keys.dart';
@@ -45,5 +46,9 @@ final searchRepositoryProvider = Provider.autoDispose<SearchRepository>((ref) {
 /// [UserRepository] Provider
 final userRepositoryProvider = Provider.autoDispose<IUserRepository>((ref) {
   final firestore = FirebaseFirestore.instance;
-  return UserRepository(firestore: firestore);
+  final auth = FirebaseAuth.instance;
+  return UserRepository(
+    firestore: firestore,
+    auth: auth,
+  );
 });

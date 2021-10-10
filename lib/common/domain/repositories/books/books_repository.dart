@@ -20,7 +20,6 @@ class BooksRepository implements IBooksRepository {
   }) : _firestore = firestore;
 
   final FirebaseFirestore _firestore;
-
   @override
   Future<Either<void, FailureState>> addNewBook({Book? book}) async {
     try {

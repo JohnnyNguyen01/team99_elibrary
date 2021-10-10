@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_navigation/riverpod_navigation.dart';
+import 'package:team99_elibrary/common/presentation/views/admin/admin_screen.dart';
 
 import '../../../authentication/presentation/views/sign_in_screen.dart';
 import '../../presentation/views/books/book_detail_screen.dart';
@@ -67,6 +68,13 @@ final _authenticated = RouteDefinition(
         template: uriToTemplate(RoutePath.dashboard),
         builder: (_, __, ___, ____) => const MaterialPage<void>(
           child: DashBoard(),
+        ),
+      ),
+      RouteDefinition(
+        template: uriToTemplate(RoutePath.admin),
+        builder: (_, __, ___, ____) => MaterialPage<void>(
+          fullscreenDialog: true,
+          child: const AdminScreen(),
         ),
       ),
     ]);

@@ -21,12 +21,12 @@ class _$UserTearOff {
   const _$UserTearOff();
 
   _User call(
-      {required String? uid,
-      required String? firstName,
-      required String? lastName,
-      required String? email,
-      required bool? isAdmin,
-      required String? imageUrl}) {
+      {String uid = '',
+      String firstName = '',
+      String lastName = '',
+      String email = '',
+      bool isAdmin = false,
+      String imageUrl = ''}) {
     return _User(
       uid: uid,
       firstName: firstName,
@@ -47,12 +47,12 @@ const $User = _$UserTearOff();
 
 /// @nodoc
 mixin _$User {
-  String? get uid => throw _privateConstructorUsedError;
-  String? get firstName => throw _privateConstructorUsedError;
-  String? get lastName => throw _privateConstructorUsedError;
-  String? get email => throw _privateConstructorUsedError;
-  bool? get isAdmin => throw _privateConstructorUsedError;
-  String? get imageUrl => throw _privateConstructorUsedError;
+  String get uid => throw _privateConstructorUsedError;
+  String get firstName => throw _privateConstructorUsedError;
+  String get lastName => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
+  bool get isAdmin => throw _privateConstructorUsedError;
+  String get imageUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -64,12 +64,12 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res>;
   $Res call(
-      {String? uid,
-      String? firstName,
-      String? lastName,
-      String? email,
-      bool? isAdmin,
-      String? imageUrl});
+      {String uid,
+      String firstName,
+      String lastName,
+      String email,
+      bool isAdmin,
+      String imageUrl});
 }
 
 /// @nodoc
@@ -93,27 +93,27 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
       uid: uid == freezed
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       firstName: firstName == freezed
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       lastName: lastName == freezed
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       isAdmin: isAdmin == freezed
           ? _value.isAdmin
           : isAdmin // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
       imageUrl: imageUrl == freezed
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ));
   }
 }
@@ -124,12 +124,12 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$UserCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String? uid,
-      String? firstName,
-      String? lastName,
-      String? email,
-      bool? isAdmin,
-      String? imageUrl});
+      {String uid,
+      String firstName,
+      String lastName,
+      String email,
+      bool isAdmin,
+      String imageUrl});
 }
 
 /// @nodoc
@@ -154,27 +154,27 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
       uid: uid == freezed
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       firstName: firstName == freezed
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       lastName: lastName == freezed
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       isAdmin: isAdmin == freezed
           ? _value.isAdmin
           : isAdmin // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
       imageUrl: imageUrl == freezed
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ));
   }
 }
@@ -183,29 +183,35 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_User extends _User {
   const _$_User(
-      {required this.uid,
-      required this.firstName,
-      required this.lastName,
-      required this.email,
-      required this.isAdmin,
-      required this.imageUrl})
+      {this.uid = '',
+      this.firstName = '',
+      this.lastName = '',
+      this.email = '',
+      this.isAdmin = false,
+      this.imageUrl = ''})
       : super._();
 
   factory _$_User.fromJson(Map<String, dynamic> json) =>
       _$_$_UserFromJson(json);
 
+  @JsonKey(defaultValue: '')
   @override
-  final String? uid;
+  final String uid;
+  @JsonKey(defaultValue: '')
   @override
-  final String? firstName;
+  final String firstName;
+  @JsonKey(defaultValue: '')
   @override
-  final String? lastName;
+  final String lastName;
+  @JsonKey(defaultValue: '')
   @override
-  final String? email;
+  final String email;
+  @JsonKey(defaultValue: false)
   @override
-  final bool? isAdmin;
+  final bool isAdmin;
+  @JsonKey(defaultValue: '')
   @override
-  final String? imageUrl;
+  final String imageUrl;
 
   @override
   String toString() {
@@ -257,28 +263,28 @@ class _$_User extends _User {
 
 abstract class _User extends User {
   const factory _User(
-      {required String? uid,
-      required String? firstName,
-      required String? lastName,
-      required String? email,
-      required bool? isAdmin,
-      required String? imageUrl}) = _$_User;
+      {String uid,
+      String firstName,
+      String lastName,
+      String email,
+      bool isAdmin,
+      String imageUrl}) = _$_User;
   const _User._() : super._();
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
   @override
-  String? get uid => throw _privateConstructorUsedError;
+  String get uid => throw _privateConstructorUsedError;
   @override
-  String? get firstName => throw _privateConstructorUsedError;
+  String get firstName => throw _privateConstructorUsedError;
   @override
-  String? get lastName => throw _privateConstructorUsedError;
+  String get lastName => throw _privateConstructorUsedError;
   @override
-  String? get email => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
   @override
-  bool? get isAdmin => throw _privateConstructorUsedError;
+  bool get isAdmin => throw _privateConstructorUsedError;
   @override
-  String? get imageUrl => throw _privateConstructorUsedError;
+  String get imageUrl => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$UserCopyWith<_User> get copyWith => throw _privateConstructorUsedError;

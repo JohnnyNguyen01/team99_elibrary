@@ -2,6 +2,9 @@
 class RoutePath {
   RoutePath._();
 
+  /// Admin route path
+  static final admin = Uri(path: '/admin');
+
   /// Root route path
   static final root = Uri(path: '/');
 

@@ -108,7 +108,7 @@ class _UserDetailsColumn extends HookWidget {
                 radius: 60,
                 backgroundImage: currentUser != null
                     ? NetworkImage(
-                        currentUser.imageUrl ?? '',
+                        currentUser.imageUrl,
                       )
                     : null,
               ),

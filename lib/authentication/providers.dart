@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../common/applicaiton/states/current_user.dart';
 import '../common/utils/firestore.dart';
 
 import 'domain/user.dart' as model;
@@ -37,14 +38,10 @@ final currentUserStreamProvider =
         .collection(usersCollection)
         .doc(firebaseUser.uid)
         .get();
-    final imageUrl = userDoc.data()?['imageUrl'] as String?;
-    yield model.User(
-        uid: firebaseUser.uid,
-        email: firebaseUser.email ?? '',
-        isAdmin: true,
-        firstName: 'Johnny',
-        lastName: 'Nguyen',
-        imageUrl: imageUrl);
+
+    final user = model.User.fromJson(userDoc.data()!);
+    ref.watch(currentUserStateProvider.notifier).setCurrentUser(user);
+    yield user;
   } else {
     yield null;
   }

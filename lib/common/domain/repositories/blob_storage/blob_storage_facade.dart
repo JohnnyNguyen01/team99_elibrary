@@ -1,5 +1,3 @@
-// ignore_for_file: one_member_abstracts
-
 import 'package:dartz/dartz.dart';
 
 import '../../models/failure/failure.dart';
@@ -9,9 +7,11 @@ import '../../models/success/success.dart';
 abstract class IBlobStorage {
   /// Retrieve the Download-URL for the specified file
   Future<Either<SuccessResponse, FailureState>> getDownloadUrl(
-      {required String filePath});
+      {required final String filePath});
 
-  /// Retrieve the Reference object for the requesred file
-  // Future<Either<SuccessResponse, FailureState>> getFileRef(
-  //     {required String filePath});
+  /// Uplaod a new file to the storage bucket
+  Future<Either<void, FailureState>> uploadNewFile({
+    required final dynamic file,
+    required final String uploadPath,
+  });
 }

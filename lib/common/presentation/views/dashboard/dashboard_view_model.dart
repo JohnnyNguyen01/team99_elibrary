@@ -53,7 +53,7 @@ class DashboardViewModel extends StateNotifier<DashboardViewState> {
       final currentlyBorrowedList = <CurrentlyBorrowed>[];
       // Obtain all currently borrowed transactions
       final requestResult = await _userRepo.fetchAllCurrentlyBorrowedInstances(
-          uid: currentUser.uid ?? '');
+          uid: currentUser.uid );
       await requestResult.fold(
         (transactionList) async {
           // Obtain book associated with each transaction

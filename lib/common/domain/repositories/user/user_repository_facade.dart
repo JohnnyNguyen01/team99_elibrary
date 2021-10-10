@@ -16,4 +16,7 @@ abstract class IUserRepository {
   /// Fetch All Currently borrowed bookInstances
   Future<Either<List<CurrentlyBorrowedBook>, FailureState>>
       fetchAllCurrentlyBorrowedInstances({required String uid});
+
+  /// Sign out the current user
+  Future<Either<void, FailureState>> signOutCurrentUser();
 }

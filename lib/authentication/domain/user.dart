@@ -8,16 +8,26 @@ part 'user.g.dart';
 class User with _$User {
   /// Constructs an instance of a [User]
   const factory User({
-    required String? uid,
-    required String? firstName,
-    required String? lastName,
-    required String? email,
-    required bool? isAdmin,
-    required String? imageUrl,
+    @Default('') String uid,
+    @Default('') String firstName,
+    @Default('') String lastName,
+    @Default('') String email,
+    @Default(false) bool isAdmin,
+    @Default('') String imageUrl,
   }) = _User;
 
   const User._();
 
   /// Constructs a [User] from [json]
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+
+  /// Helper method to return an empty [User] object
+  factory User.empty() => const User(
+        uid: '',
+        firstName: '',
+        lastName: '',
+        email: '',
+        imageUrl: '',
+        isAdmin: false,
+      );
 }

@@ -30,4 +30,11 @@ class FirebaseStorageRepository implements IBlobStorage {
       );
     }
   }
+
+  @override
+  Future<Either<void, FailureState>> uploadNewFile(
+      {required dynamic file, required String uploadPath}) {
+    // TODO: implement uploadNewFile
+    throw UnimplementedError();
+  }
 }

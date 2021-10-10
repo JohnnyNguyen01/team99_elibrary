@@ -37,7 +37,7 @@ class FirebaseAuthImplementation implements AuthRepository {
             firstName: 'Johnny',
             lastName: 'Nguyen',
             uid: credential.user?.uid ?? '',
-            imageUrl: userDoc.data()?['imageUrl'] as String?),
+            imageUrl: userDoc.data()?['imageUrl'] as String),
       );
     } on FirebaseAuthException catch (err) {
       return Result.failure(
