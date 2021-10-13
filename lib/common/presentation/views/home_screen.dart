@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:riverpod_extension/riverpod_extension.dart';
 import 'package:team99_elibrary/common/presentation/views/faq/faq_screen.dart';
+import 'package:team99_elibrary/common/presentation/views/referencing/referencing.dart';
 import 'package:team99_elibrary/common/presentation/views/visit_us.dart/visit_us.dart';
 import '../../utils/constants.dart';
 import '../widgets/appBars/default_app_bar.dart';
@@ -41,8 +42,7 @@ class HomeScreen extends HookWidget {
           final innerIsScrolled,
         ) =>
             const [WebsiteHeader()],
-        body: const VisitUs(),
-        /*SingleChildScrollView(
+        body: SingleChildScrollView(
           child: CenterConstraint(
             children: [
               // Alert placeholder
@@ -81,7 +81,7 @@ class HomeScreen extends HookWidget {
               )
             ],
           ),
-        ), */
+        ),
       ),
     );
   }
