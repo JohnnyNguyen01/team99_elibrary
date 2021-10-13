@@ -28,7 +28,7 @@ class DefaultAppBar extends HookWidget implements PreferredSize {
       'Get Help',
       'About Us',
       "What's On",
-      'Visit Us'
+      'Visit Us',
     ];
 
     final navigator = useProvider(navigationProvider.notifier);
